@@ -7,4 +7,6 @@ Téma vychází z tématu využitého v předmětu DB1. Aplikace by měla simulo
 
 Komentáře k odevzdání:
 
-případné informace nutné k pochopení obsahu archivu
+Ve složce dokumentace - dokument se specifikací případů užití
+Ve složce modely - Wireframe.drawio - wireframe PU-04
+		- ChirutgickaAmbulance.vpp - diagram případů užití, tříd, stavů entity neschopenka
