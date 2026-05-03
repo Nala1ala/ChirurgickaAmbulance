@@ -1,0 +1,51 @@
+{# views/add_prescription.twig #}
+{% extends 'base.twig' %}
+
+{% block title %}Nový předpis{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-10">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Předpis léčiva</h4>
+                    <span class="fw-bold">{{ "now"|date("d. m. Y") }}</span>
+                </div>
+
+                <div class="card-body">
+                    <p class="text-muted mb-4">Pacient: <strong>{{ patient_name }}</strong></p>
+
+                    <form action="index.php?action=add_prescription&id={{ patient_id }}" method="POST">
+                        <div class="row">
+
+                            <div class="col-md-6 d-flex flex-column justify-content-between">
+                                <div>
+                                    <label for="medicine_id" class="form-label fw-bold">Léčivo:</label>
+                                    <select class="form-select" id="medicine_id" name="medicine_id" required>
+                                        <option value="" selected disabled>-- Vyberte léčivo --</option>
+                                        {% for med in medicines %}
+                                            <option value="{{ med.getId() }}">{{ med.getName() }} ({{ med.getForm() }})</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="mt-4 pt-2">
+                                    <button type="submit" class="btn btn-success me-2">Uložit</button>
+                                    <a href="index.php?action=detail&id={{ patient_id }}" class="btn btn-outline-danger" title="Zrušit předpis">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mt-3 mt-md-0">
+                                <label for="commentary" class="form-label fw-bold">Komentář:</label>
+                                <textarea class="form-control" id="commentary" name="commentary" rows="5" placeholder="Zadejte komentář..."></textarea>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
