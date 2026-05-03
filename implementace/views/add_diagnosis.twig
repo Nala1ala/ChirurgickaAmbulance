@@ -1,0 +1,51 @@
+{# views/add_diagnosis.twig #}
+{% extends 'base.twig' %}
+
+{% block title %}Nová diagnóza{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-10">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Přidat diagnózu</h4>
+                    <span class="fw-bold">{{ "now"|date("d. m. Y") }}</span>
+                </div>
+
+                <div class="card-body">
+                    <p class="text-muted mb-4">Pacient: <strong>{{ patient_name }}</strong></p>
+
+                    <form action="index.php?action=add_diagnosis&id={{ patient_id }}" method="POST">
+                        <div class="row">
+
+                            <div class="col-md-6 d-flex flex-column justify-content-between">
+                                <div>
+                                    <label for="diagnosis_id" class="form-label fw-bold">Diagnóza:</label>
+                                    <select class="form-select" id="diagnosis_id" name="diagnosis_id" required>
+                                        <option value="" selected disabled>-- Vyberte diagnózu --</option>
+                                        {% for diag in diagnoses %}
+                                            <option value="{{ diag.getId() }}">{{ diag.getName() }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="mt-4 pt-2">
+                                    <button type="submit" class="btn btn-warning me-2">Uložit</button>
+                                    <a href="index.php?action=detail&id={{ patient_id }}" class="btn btn-outline-danger" title="Zrušit zadávání diagnózy">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mt-3 mt-md-0">
+                                <label for="description" class="form-label fw-bold">Popis / Nález:</label>
+                                <textarea class="form-control" id="description" name="description" rows="5" placeholder="Zadejte podrobnější popis zdravotního stavu..."></textarea>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
