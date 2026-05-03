@@ -1,0 +1,15 @@
+{
+  "description": "Composer components",
+  "require": {
+    "twig/twig" : ">=3.0",
+    "twbs/bootstrap" : ">=5.0",
+    "twbs/bootstrap-icons": "^1.11",
+    "ext-pdo": "*"
+  },
+  "config": {
+    "platform": {
+      "php": "8.2"
+    },
+    "sort-packages": true
+  }
+}

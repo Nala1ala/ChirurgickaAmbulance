@@ -1,0 +1,79 @@
+{# views/patient_list.twig #}
+{% extends 'base.twig' %}
+
+{% block title %}Přehled pacientů{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Přehled pacientů</h2>
+
+        {# Tlačítko pro PU-01 Přidat pacienta #}
+        <a href="?action=add_patient_form" class="btn btn-primary">
+            <i class="bi bi-person-plus"></i> Nový pacient
+        </a>
+    </div>
+
+    {# Panel pro vyhledávání (PU-03) #}
+    <div class="card shadow-sm mb-4">
+        <div class="card-body bg-white">
+            <form action="index.php" method="GET">
+                <input type="hidden" name="action" value="search_patients">
+
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+
+                    {# Dropdown pro výběr atributu hledání #}
+                    <select name="searchType" class="form-select" style="max-width: 200px;">
+                        <option value="name">Jméno</option>
+                        <option value="birth_certificate">Rodné číslo</option>
+                        <option value="insurance_number">Číslo pojišťovny</option>
+                    </select>
+
+                    {# Samotné políčko pro výraz #}
+                    <input type="text" name="query" class="form-control" placeholder="Zadejte hledaný výraz..." required>
+
+                    <button type="submit" class="btn btn-secondary">Vyhledat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {# Tabulka s výsledky / seznamem všech #}
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>Rodné číslo</th>
+                    <th>Jméno</th>
+                    <th>Příjmení</th>
+                    <th>Číslo pojišťovny</th>
+                    <th>Datum narození</th>
+                    <th>Adresa</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for p in patients %}
+                    <tr>
+                        {# Kliknutí na rodné číslo vede na detail #}
+                        <td>
+                            <a href="?action=detail&id={{ p.birthCertificateNumber }}" class="fw-bold text-decoration-none">
+                                {{ p.birthCertificateNumber }}
+                            </a>
+                        </td>
+                        <td>{{ p.givenName }}</td>
+                        <td>{{ p.surname }}</td>
+                        <td>{{ p.insuranceCompanyNumber }}</td>
+                        <td>{{ p.birthdate|date("d.m.Y") }}</td>
+                        <td>{{ p.address }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-3 text-muted">Žádní pacienti nebyli nalezeni.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

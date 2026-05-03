@@ -1,0 +1,137 @@
+<?php
+namespace controllers;
+use PatientDAO;
+use PatientRepository;
+
+include_once \PatientRepository::class; include_once \PatientDAO::class;
+class PatientController {
+    private PatientRepository $patientRepo;
+    private PatientDAO $patientDao;
+    private \Twig\Environment $twig;
+
+    /**
+     * Konstruktor přijímá Twig, aby mohl vykreslovat šablony.
+     * Repozitář a DAO si inicializuje sám.
+     */
+    public function __construct(\Twig\Environment $twig) {
+        $this->twig = $twig;
+        $this->patientRepo = new PatientRepository();
+        $this->patientDao = new PatientDAO();
+    }
+
+    /**
+     * Akce: index
+     * Zobrazí výchozí seznam všech pacientů.
+     */
+    public function index(): void {
+        // V reálné aplikaci by zde mohla být metoda getAllPatients()
+        // Pro jednoduchost použijeme search s prázdným dotazem.
+        $patients = $this->patientDao->getAllPatients();
+
+        echo $this->twig->render('patient_list.twig', [
+            'patients' => $patients,
+            'active_page' => 'patients'
+        ]);
+    }
+
+    /**
+     * Akce: search_patients
+     * Zpracuje vyhledávací formulář z patient_list.twig
+     */
+    public function search(): void {
+        $query = $_GET['query'] ?? '';
+        $type = $_GET['searchType'] ?? 'surname';
+
+        // Podle vybraného typu voláme příslušnou metodu v DAO
+        if ($type === 'birth_certificate') {
+            $patients = $this->patientDao->searchPatientsByNumber($query);
+        } else if ($type === 'insurance_number') {
+            $patients = $this->patientDao->searchPatientsByInsuranceCompanyNumber((int)$query);
+        } else {
+            $patients = $this->patientDao->searchPatientsByName($query);
+        }
+
+        echo $this->twig->render('patient_list.twig', [
+            'patients' => $patients,
+            'active_page' => 'patients',
+            'search_query' => $query // Aby uživatel viděl, co hledal
+        ]);
+    }
+
+    /**
+     * Akce: detail (PU-03)
+     * Zobrazí kompletní kartu pacienta včetně historie.
+     */
+    public function detail(): void {
+        $id = (int)($_GET['id'] ?? 0);
+        $patient = $this->patientRepo->getCompletePatientProfile($id);
+
+        if (!$patient) {
+            echo $this->twig->render('error.twig', [
+                'message' => "Pacient s rodným číslem $id nebyl nalezen.",
+                'active_page' => 'patients'
+            ]);
+            return;
+        }
+
+        echo $this->twig->render('patient_detail.twig', [
+            'patient' => $patient,
+            'active_page' => 'patients'
+        ]);
+    }
+
+    /**
+     * Akce: add_patient_form (PU-01)
+     * Pouze zobrazí prázdný formulář.
+     */
+    public function showAddPatientForm(): void {
+        echo $this->twig->render('add_patient.twig', [
+            'active_page' => 'patients'
+        ]);
+    }
+
+    /**
+     * Akce: add_patient (PU-01)
+     * Zpracuje POST data z formuláře a uloží pacienta.
+     */
+    public function processAddPatient(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: index.php?action=patients");
+            exit;
+        }
+
+        // 1. Sběr dat z formuláře
+        $rc = (int)$_POST['birthCertificateNumber'];
+        $givenName = trim($_POST['givenName']);
+        $surname = trim($_POST['surname']);
+        $address = trim($_POST['address']);
+        $insurance = (int)$_POST['insuranceCompanyNumber'];
+        $phone = trim($_POST['phoneNumber']);
+        $birthdate = $_POST['birthdate'];
+
+        // 2. Vytvoření DTO (využívá tvou třídu Patient.class.php)
+        $newPatient = new Patient(
+            $rc,
+            $givenName,
+            $surname,
+            $address,
+            $insurance,
+            $phone,
+            $birthdate
+        );
+
+        // 3. Pokus o uložení
+        $success = $this->patientDao->insertPatient($newPatient);
+
+        if ($success) {
+            // Po úspěchu přesměrujeme na detail, aby lékař mohl hned psát diagnózu
+            header("Location: index.php?action=detail&id=" . $rc);
+            exit;
+        } else {
+            echo $this->twig->render('add_patient.twig', [
+                'error' => 'Chyba při ukládání. Rodné číslo je pravděpodobně již v systému.',
+                'active_page' => 'patients'
+            ]);
+        }
+    }
+}

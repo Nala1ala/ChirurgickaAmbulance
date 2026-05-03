@@ -1,0 +1,153 @@
+{# views/patient_detail.twig #}
+{% extends 'base.twig' %}
+
+{% block title %}Detail pacienta - {{ patient.givenName }} {{ patient.surname }}{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Karta pacienta</h2>
+        <a href="?action=patients" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Zpět
+        </a>
+    </div>
+
+    <div class="row mb-5">
+
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <h3 class="card-title fw-bold text-primary mb-0 me-2">
+                            {{ patient.givenName }} {{ patient.surname }}
+                        </h3>
+                        <a href="?action=edit_patient&id={{ patient.birthCertificateNumber }}"
+                           class="btn btn-outline-primary btn-sm border-0"
+                           title="Upravit osobní údaje">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    </div>
+
+                    <p class="mb-1 text-muted small">Rodné číslo:</p>
+                    <p class="fs-5 mb-3">{{ patient.birthCertificateNumber }}</p>
+
+                    <p class="mb-1 text-muted small">Datum narození:</p>
+                    <p class="fs-5 mb-3">{{ patient.birthdate|date("d.m.Y") }}</p>
+
+                    <p class="mb-1 text-muted small">Číslo pojišťovny:</p>
+                    <p class="fs-5 mb-3">{{ patient.insuranceCompanyNumber }}</p>
+
+                    <p class="mb-1 text-muted small">Adresa:</p>
+                    <p class="fs-5 mb-3">{{ patient.address }}</p>
+
+                    <p class="mb-1 text-muted small">Telefon:</p>
+                    <p class="fs-5 mb-0">{{ patient.phoneNumber }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <h4 class="mb-3">Pracovní neschopnosti</h4>
+            <div class="table-responsive bg-white shadow-sm border rounded mb-3">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Začátek</th>
+                        <th>Konec</th>
+                        <th>Místo pobytu</th>
+                        <th>Zaměstnavatel</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for cert in patient.certificates %}
+                        <tr>
+                            <td class="align-middle">{{ cert.startDate|date("d.m.Y") }}</td>
+                            <td class="align-middle">
+                                {% if cert.endDate %}
+                                    {{ cert.endDate|date("d.m.Y") }}
+                                {% else %}
+                                    <a href="?action=end_certificate_form&patient_id={{ patient.birthCertificateNumber }}&start_date={{ cert.startDate }}" class="btn btn-danger btn-sm">Ukončit</a>
+                                {% endif %}
+                            </td>
+                            <td class="align-middle">{{ cert.activeAddress }}</td>
+                            <td class="align-middle">{{ cert.employer }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-3">Pacient nemá žádné neschopenky.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="?action=add_certificate_form&patient_id={{ patient.birthCertificateNumber }}" class="btn btn-primary">
+                + Přidat neschopenku
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6 mb-4">
+            <h4 class="mb-3">Předepsaná léčiva</h4>
+            <div class="table-responsive bg-white shadow-sm border rounded mb-3">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Datum</th>
+                        <th>Léčivo ID</th>
+                        <th>Komentář</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for prescription in patient.prescriptions %}
+                        <tr>
+                            <td>{{ prescription.date|date("d.m.Y") }}</td>
+                            <td>{{ prescription.medicineId }}</td>
+                            <td>{{ prescription.commentary }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-3">Zatím nebyla předepsána žádná léčiva.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="?action=add_prescription_form&patient_id={{ patient.birthCertificateNumber }}" class="btn btn-success">
+                + Přidat předpis
+            </a>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <h4 class="mb-3">Diagnózy</h4>
+            <div class="table-responsive bg-white shadow-sm border rounded mb-3">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Datum</th>
+                        <th>Diagnóza ID</th>
+                        <th>Popis</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for diag in patient.diagnoses %}
+                        <tr>
+                            <td>{{ diag.date|date("d.m.Y") }}</td>
+                            <td>{{ diag.diagnosisId }}</td>
+                            <td>{{ diag.description }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-3">Pacient nemá zaznamenané žádné diagnózy.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="?action=add_diagnosis_form&patient_id={{ patient.birthCertificateNumber }}" class="btn btn-warning text-dark">
+                + Přidat diagnózu
+            </a>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{# views/add_patient.twig #}
+{% extends 'base.twig' %}
+
+{% block title %}Nový pacient{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Přidat nového pacienta</h4>
+                </div>
+                <div class="card-body">
+
+                    {# Odesíláme data metodou POST do akce add_patient #}
+                    <form action="index.php?action=add_patient" method="POST">
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="givenName" class="form-label">Křestní jméno *</label>
+                                <input type="text" class="form-control" id="givenName" name="givenName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="surname" class="form-label">Příjmení *</label>
+                                <input type="text" class="form-control" id="surname" name="surname" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="birthCertificateNumber" class="form-label">Rodné číslo (bez lomenítka) *</label>
+                                <input type="number" class="form-control" id="birthCertificateNumber" name="birthCertificateNumber" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="birthdate" class="form-label">Datum narození *</label>
+                                <input type="date" class="form-control" id="birthdate" name="birthdate" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Trvalé bydliště *</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="insuranceCompanyNumber" class="form-label">Číslo pojišťovny *</label>
+                                <input type="number" class="form-control" id="insuranceCompanyNumber" name="insuranceCompanyNumber" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phoneNumber" class="form-label">Telefonní číslo *</label>
+                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="?action=patients" class="btn btn-outline-secondary">Zpět na přehled</a>
+                            <button type="submit" class="btn btn-primary">Uložit pacienta</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
