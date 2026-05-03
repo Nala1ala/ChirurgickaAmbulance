@@ -1,0 +1,53 @@
+{# views/add_certificate.twig #}
+{% extends 'base.twig' %}
+
+{% block title %}Nová neschopenka{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-10">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Vystavit neschopenku</h4>
+                    <span class="fw-bold">{{ "now"|date("d. m. Y") }}</span>
+                </div>
+
+                <div class="card-body">
+                    <p class="text-muted mb-4">Pacient: <strong>{{ patient_name }}</strong></p>
+
+                    <form action="index.php?action=add_certificate&id={{ patient_id }}" method="POST">
+                        <div class="row">
+
+                            <div class="col-md-6 d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="mb-3">
+                                        <label for="start_date" class="form-label fw-bold">Datum začátku:</label>
+                                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ "now"|date("Y-m-d") }}" required>
+                                    </div>
+
+                                    <div>
+                                        <label for="employer" class="form-label fw-bold">Zaměstnavatel:</label>
+                                        <input type="text" class="form-control" id="employer" name="employer" placeholder="Název firmy / IČO..." required>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 pt-2">
+                                    <button type="submit" class="btn btn-primary me-2">Vystavit</button>
+                                    <a href="index.php?action=detail&id={{ patient_id }}" class="btn btn-outline-danger" title="Zrušit vystavování">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mt-3 mt-md-0">
+                                <label for="active_address" class="form-label fw-bold">Místo pobytu během neschopnosti:</label>
+                                <textarea class="form-control" id="active_address" name="active_address" rows="5" placeholder="Ulice, č.p., Město, PSČ..." required></textarea>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

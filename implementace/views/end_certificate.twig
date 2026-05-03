@@ -1,0 +1,51 @@
+{# views/end_certificate.twig #}
+{% extends 'base.twig' %}
+
+{% block title %}Ukončit neschopenku{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-10">
+            <div class="card shadow-sm border-danger">
+                <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Ukončit neschopenku</h4>
+                    <span class="fw-bold">{{ "now"|date("d. m. Y") }}</span>
+                </div>
+
+                <div class="card-body">
+                    <form action="index.php?action=end_certificate&id={{ patient_id }}" method="POST">
+
+                        <input type="hidden" name="start_date" value="{{ start_date }}">
+
+                        <div class="row">
+                            <div class="col-md-6 d-flex flex-column justify-content-between">
+                                <div class="mb-4">
+                                    <label for="end_date" class="form-label fw-bold">Datum ukončení:</label>
+                                    <input type="date" class="form-control" id="end_date" name="end_date" value="{{ "now"|date("Y-m-d") }}" required>
+                                </div>
+
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-danger me-2">Ukončit neschopenku</button>
+                                    <a href="index.php?action=detail&id={{ patient_id }}" class="btn btn-outline-secondary" title="Zpět na kartu pacienta">
+                                        Zrušit
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mt-3 mt-md-0 border-start ps-4 d-flex flex-column justify-content-center">
+                                <p class="text-muted mb-2">
+                                    <i class="bi bi-info-circle me-1"></i> Ukončujete neschopenku pacienta, která začala dne:
+                                </p>
+                                <h5 class="text-dark">{{ start_date|date("d. m. Y") }}</h5>
+                                <p class="small text-muted mt-3">
+                                    Systém tento záznam automaticky uzavře a v kartě pacienta se přestane zobrazovat jako aktivní.
+                                </p>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
