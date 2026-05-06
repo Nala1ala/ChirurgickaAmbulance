@@ -63,7 +63,7 @@ class PatientController {
      * Zobrazí kompletní kartu pacienta včetně historie.
      */
     public function detail(): void {
-        $id = (int)($_GET['id'] ?? 0);
+        $id = ($_GET['id'] ?? 0);
         $patient = $this->patientRepo->getCompletePatientProfile($id);
 
         if (!$patient) {
@@ -101,7 +101,16 @@ class PatientController {
         }
 
         // 1. Sběr dat z formuláře
-        $rc = (int)$_POST['birthCertificateNumber'];
+        $rc = $_POST['birthCertificateNumber'];
+
+        if ($rc === '' || !ctype_digit($rc)) {
+            echo $this->twig->render('error.twig', [
+                'message' => 'Neplatný formát rodného čísla. Jsou povoleny pouze číslice.',
+                'active_page' => 'patients'
+            ]);
+            return;
+        }
+
         $newPatient = $this->getNewPatient($rc);
 
         // 3. Pokus o uložení
@@ -124,7 +133,7 @@ class PatientController {
      * Zobrazí formulář pro úpravu pacienta předvyplněný stávajícími daty.
      */
     public function showEditPatientForm(): void {
-        $id = (int)($_GET['id'] ?? 0);
+        $id = ($_GET['id'] ?? 0);
 
         // Získáme pacienta z databáze
         $patient = $this->patientDao->getPatientById($id);
@@ -154,9 +163,23 @@ class PatientController {
         }
 
         // Rodné číslo si vezmeme z URL, protože ve formuláři je disabled/readonly
-        $rc = (int)($_GET['id'] ?? 0);
+        $rc = ($_GET['id'] ?? 0);
 
-        $updatedPatient = $this->getNewPatient($rc);
+        $existingPatient = $this->patientDao->getPatientById($rc);
+        if (!$existingPatient) {
+            echo $this->twig->render('error.twig', ['message' => 'Pacient nenalezen.']);
+            return;
+        }
+
+        $updatedPatient = new Patient(
+            $rc,
+            trim($_POST['givenName'] ?? ''),
+            trim($_POST['surname'] ?? ''),
+            trim($_POST['address'] ?? ''),
+            (int)($_POST['insuranceCompanyNumber'] ?? 0),
+            trim($_POST['phoneNumber'] ?? ''),
+            $existingPatient->getBirthdate()
+        );
 
         // Uložíme přes již existující metodu v DAO
         $success = $this->patientDao->updatePatient($updatedPatient);
@@ -174,10 +197,10 @@ class PatientController {
     }
 
     /**
-     * @param int $rc
+     * @param string $rc
      * @return Patient
      */
-    public function getNewPatient(int $rc): Patient
+    public function getNewPatient(string $rc): Patient
     {
         $givenName = trim($_POST['givenName']);
         $surname = trim($_POST['surname']);

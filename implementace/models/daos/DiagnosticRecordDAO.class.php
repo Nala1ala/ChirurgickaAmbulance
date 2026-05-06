@@ -1,11 +1,10 @@
 <?php
 namespace app\models\daos;
 use app\models\dtos\DiagnosticRecord;
-use app\models\PDO;
+use PDO;
 use app\models\PDODatabase;
-use app\models\PDOException;
+use PDOException;
 
-include_once \app\models\dtos\DiagnosticRecord::class;
 class DiagnosticRecordDAO {
     private PDO $db;
 
@@ -44,7 +43,7 @@ class DiagnosticRecordDAO {
      * @return array of DiagnosticRecord DTOs
      */
     public function getRecordsByPatientId(int $patientId): array {
-        $sql = "SELECT * FROM diagnostics WHERE Patient_id = :patient_id ORDER BY Date DESC";
+        $sql = "SELECT * FROM diagnostic_record WHERE Patient_id = :patient_id ORDER BY Date DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':patient_id' => $patientId]);
 

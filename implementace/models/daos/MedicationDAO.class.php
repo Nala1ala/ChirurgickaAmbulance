@@ -1,10 +1,9 @@
 <?php
 namespace app\models\daos;
-use app\models\Medication;
-use app\models\PDO;
+use app\models\dtos\Medication;
+use PDO;
 use app\models\PDODatabase;
 
-include_once \app\models\dtos\Medication::class;
 class MedicationDAO {
     private PDO $db;
 

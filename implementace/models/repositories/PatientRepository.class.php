@@ -31,7 +31,7 @@ class PatientRepository
      * @param int $birthCertificateNumber Patient identifier
      * @return Patient|null Patient DTO if patient exists in database
      */
-    public function getCompletePatientProfile(int $birthCertificateNumber): ?Patient
+    public function getCompletePatientProfile(string $birthCertificateNumber): ?Patient
     {
         $patient = $this->patientDao->getPatientById($birthCertificateNumber);
 

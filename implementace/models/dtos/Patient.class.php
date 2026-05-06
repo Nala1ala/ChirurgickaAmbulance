@@ -7,7 +7,7 @@ namespace app\models\dtos;
 class Patient
 {
 
-    private int $birthCertificateNumber;
+    private string $birthCertificateNumber;
     private string $givenName;
     private string $surname;
     private string $address;
@@ -21,7 +21,7 @@ class Patient
 
     /**
      * New instance constructor
-     * @param int|null $birthCertificateNumber Patient identifier
+     * @param string|null $birthCertificateNumber Patient identifier
      * @param string $givenName First name(s)
      * @param string $surname Last name(s)
      * @param string $address Permanent address
@@ -29,7 +29,7 @@ class Patient
      * @param string $phoneNumber Telephone number
      * @param string $birthdate
      */
-    public function __construct(?int $birthCertificateNumber, string $givenName, string $surname, string $address, int $insuranceCompanyNumber, string $phoneNumber, string $birthdate)
+    public function __construct(?string $birthCertificateNumber, string $givenName, string $surname, string $address, int $insuranceCompanyNumber, string $phoneNumber, string $birthdate)
     {
         $this->birthCertificateNumber = $birthCertificateNumber;
         $this->givenName = $givenName;
@@ -41,7 +41,7 @@ class Patient
     }
 
     // Attribute getters
-    public function getBirthCertificateNumber(): ?int
+    public function getBirthCertificateNumber(): ?string
     {
         return $this->birthCertificateNumber;
     }

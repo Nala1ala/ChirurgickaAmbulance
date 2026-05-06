@@ -1,5 +1,7 @@
 <?php
 namespace app\models;
+use PDO;
+
 /**
  * Database access singleton using PDO
  */

@@ -1,9 +1,8 @@
 <?php
 namespace app\models\daos;
 use app\models\PDODatabase;
-use app\models\SicknessCertificate;
-
-include_once \app\models\dtos\SicknessCertificate::class;
+use app\models\dtos\SicknessCertificate;
+use PDO;
 
 class SicknessCertificateDAO {
     private PDO $db;

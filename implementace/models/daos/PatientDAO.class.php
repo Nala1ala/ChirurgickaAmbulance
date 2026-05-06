@@ -1,7 +1,7 @@
 <?php
 namespace app\models\daos;
 use app\models\dtos\Patient;
-use app\models\PDO;
+use PDO;
 use app\models\PDODatabase;
 use Exception;
 use PDOException;
@@ -51,10 +51,10 @@ class PatientDAO {
 
     /**
      * Requests patients data from database based on birth certificate number (identifier))
-     * @param int $birthCertificateNumber Patient identifier
+     * @param string $birthCertificateNumber Patient identifier
      * @return Patient|null Patient DTO if patient exists
      */
-    public function getPatientById(int $birthCertificateNumber): ?Patient {
+    public function getPatientById(string $birthCertificateNumber): ?Patient {
         $sql = "SELECT * FROM patient WHERE Birth_certificate_number = :bcn";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':bcn' => $birthCertificateNumber]);
@@ -66,7 +66,7 @@ class PatientDAO {
         }
 
         return new Patient(
-            (int)$row['Birth_certificate_number'],
+            $row['Birth_certificate_number'],
             $row['Given_name'],
             $row['Surname'],
             $row['Permanent_address'],
@@ -82,8 +82,10 @@ class PatientDAO {
      * @return array of Patient DTOs
      */
     public function searchPatientsByName(string $nameQuery): array {
-        $sql = "SELECT * FROM patient WHERE Given_name LIKE :q OR Surname LIKE :q";
-        return $this->extracted($sql, $nameQuery);
+        $sql = "SELECT * FROM patient WHERE Given_name LIKE :q1 OR Surname LIKE :q2";
+        $param = '%' . $nameQuery . '%';
+
+        return $this->extracted($sql, [':q1' => $param, ':q2' => $param]);
     }
 
     /**
@@ -99,7 +101,7 @@ class PatientDAO {
         $patients = [];
         foreach ($rows as $row) {
             $patients[] = new Patient(
-                (int)$row['Birth_certificate_number'],
+                $row['Birth_certificate_number'],
                 $row['Given_name'],
                 $row['Surname'],
                 $row['Permanent_address'],
@@ -120,7 +122,9 @@ class PatientDAO {
     public function searchPatientsByNumber(string $numberQuery): array
     {
         $sql = "SELECT * FROM patient WHERE Birth_certificate_number LIKE :q";
-        return $this->extracted($sql, $numberQuery);
+        $param = '%'.$numberQuery.'%';
+
+        return $this->extracted($sql, [":q" => $param]);
     }
 
     /**
@@ -137,7 +141,7 @@ class PatientDAO {
         $patients = [];
         foreach ($rows as $row) {
             $patients[] = new Patient(
-                (int)$row['Birth_certificate_number'],
+                $row['Birth_certificate_number'],
                 $row['Given_name'],
                 $row['Surname'],
                 $row['Permanent_address'],
@@ -158,7 +162,7 @@ class PatientDAO {
     public function updatePatient(Patient $patient): bool {
         $sql = "UPDATE patient 
                 SET Given_name = :given_name, Surname = :surname, Permanent_address = :address, 
-                    Insurance_company_number = :icn, Telephone_number = :phone, Birthdate = :birthdate
+                    Insurance_company_number = :icn, Telephone_number = :phone
                 WHERE Birth_certificate_number = :bcn";
 
         $stmt = $this->db->prepare($sql);
@@ -168,7 +172,6 @@ class PatientDAO {
             ':address' => $patient->getAddress(),
             ':icn' => $patient->getInsuranceCompanyNumber(),
             ':phone' => $patient->getPhoneNumber(),
-            ':birthdate' => $patient->getBirthdate(),
             ':bcn' => $patient->getBirthCertificateNumber()
         ]);
     }
@@ -176,18 +179,18 @@ class PatientDAO {
     /**
      * Executes a database query patient search and extracts all matching Patient DTOs
      * @param string $sql search query
-     * @param string $query expression to match
+     * @param array $queryParams expression to match
      * @return array of Patient DTOs
      */
-    public function extracted(string $sql, string $query): array
+    public function extracted(string $sql, array $queryParams): array
     {
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([':q' => '%' . $query . '%']);
+        $stmt->execute($queryParams);
 
         $patients = [];
         while ($row = $stmt->fetch()) {
             $patients[] = new Patient(
-                (int)$row['Birth_certificate_number'],
+                $row['Birth_certificate_number'],
                 $row['Given_name'],
                 $row['Surname'],
                 $row['Permanent_address'],

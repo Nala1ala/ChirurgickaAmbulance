@@ -21,8 +21,8 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="birthdate" class="form-label fw-bold">Datum narození *</label>
-                                <input type="date" class="form-control" id="birthdate" name="birthdate" value="{{ patient.getBirthdate() }}" required>
+                                <label for="birthdate" class="form-label fw-bold">Datum narození (nelze měnit)</label>
+                                <input type="date" class="form-control bg-light" id="birthdate" name="birthdate" value="{{ patient.getBirthdate() }}" readonly>
                             </div>
                         </div>
 

@@ -1,11 +1,10 @@
 <?php
 namespace app\models\daos;
-use app\models\PDO;
+use PDO;
 use app\models\PDODatabase;
-use app\models\PDOException;
-use app\models\Prescription;
+use PDOException;
+use app\models\dtos\Prescription;
 
-include_once \app\models\dtos\Prescription::class;
 class PrescriptionDAO {
     private PDO $db;
 
