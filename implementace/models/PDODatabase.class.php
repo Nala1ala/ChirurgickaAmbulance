@@ -1,5 +1,5 @@
 <?php
-
+namespace app\models;
 /**
  * Database access singleton using PDO
  */
@@ -8,7 +8,7 @@ class PDODatabase
     private static $instance = null;
     private $connection;
     private $host = 'localhost';
-    private $db   = 'chirurgicka_ambulance';
+    private $db   = 'haasova_chirurgicka_ambulance';
     private $user = 'root';
     private $pass = '';
     private $charset = 'utf8mb4';

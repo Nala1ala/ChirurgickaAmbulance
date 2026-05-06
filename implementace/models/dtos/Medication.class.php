@@ -1,5 +1,6 @@
 <?php
 
+namespace app\models\dtos;
 /**
  * One specific medication with specific medicinal substance and form DTO
  */
@@ -17,7 +18,8 @@ class Medication
      * @param string $medicinalSubstance
      * @param string $form Tablets/injections/syrup/ointment/...
      */
-    public function __construct(?int $id, string $name, string $medicinalSubstance, string $form) {
+    public function __construct(?int $id, string $name, string $medicinalSubstance, string $form)
+    {
         $this->id = $id;
         $this->name = $name;
         $this->medicinalSubstance = $medicinalSubstance;
@@ -25,8 +27,23 @@ class Medication
     }
 
     // Attribute getters
-    public function getId(): ?int { return $this->id; }
-    public function getName(): string { return $this->name; }
-    public function getMedicinalSubstance(): string { return $this->medicinalSubstance; }
-    public function getForm(): string { return $this->form; }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getMedicinalSubstance(): string
+    {
+        return $this->medicinalSubstance;
+    }
+
+    public function getForm(): string
+    {
+        return $this->form;
+    }
 }

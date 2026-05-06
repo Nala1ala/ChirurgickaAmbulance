@@ -1,0 +1,35 @@
+{# views/error.twig #}
+{% extends 'base.twig' %}
+
+{% block title %}Chyba systému{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-danger shadow">
+
+                <div class="card-header bg-danger text-white d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                    <h4 class="mb-0">Jejda, něco se pokazilo</h4>
+                </div>
+
+                <div class="card-body text-center py-5">
+                    <p class="card-text fs-5 text-dark mb-4">
+                        {{ message }}
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-3">
+                        <button onclick="history.back()" class="btn btn-outline-danger">
+                            <i class="bi bi-arrow-left me-1"></i> Zpět
+                        </button>
+
+                        <a href="index.php?action=patients" class="btn btn-primary">
+                            <i class="bi bi-house-door me-1"></i> Seznam pacientů
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

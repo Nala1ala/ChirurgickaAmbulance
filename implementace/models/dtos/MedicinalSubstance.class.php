@@ -1,9 +1,11 @@
 <?php
 
+namespace app\models\dtos;
 /**
  * Medicinal substance DTO
  */
-class MedicinalSubstance {
+class MedicinalSubstance
+{
     private string $name;
     private string $category;
 
@@ -12,12 +14,20 @@ class MedicinalSubstance {
      * @param string $name Substance name
      * @param string $category Medicinal category
      */
-    public function __construct(string $name, string $category) {
+    public function __construct(string $name, string $category)
+    {
         $this->name = $name;
         $this->category = $category;
     }
 
     // Attribute getters
-    public function getName(): string { return $this->name; }
-    public function getCategory(): string { return $this->category; }
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getCategory(): string
+    {
+        return $this->category;
+    }
 }

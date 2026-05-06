@@ -1,5 +1,10 @@
 <?php
-include_once PDODatabase::class; include_once Interaction::class;
+namespace app\models\daos;
+use app\models\Interaction;
+use app\models\PDO;
+use app\models\PDODatabase;
+
+include_once \app\models\dtos\Interaction::class;
 class InteractionDAO {
     private PDO $db;
 

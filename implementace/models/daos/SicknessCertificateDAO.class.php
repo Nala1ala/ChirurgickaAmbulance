@@ -1,5 +1,9 @@
 <?php
-include_once PDODatabase::class; include_once SicknessCertificate::class;
+namespace app\models\daos;
+use app\models\PDODatabase;
+use app\models\SicknessCertificate;
+
+include_once \app\models\dtos\SicknessCertificate::class;
 
 class SicknessCertificateDAO {
     private PDO $db;

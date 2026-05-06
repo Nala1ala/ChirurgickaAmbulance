@@ -1,4 +1,9 @@
 <?php
+namespace app\controllers;
+use app\models\daos\DiagnosisDAO;
+use app\models\daos\DiagnosticRecordDAO;
+use app\models\daos\PatientDAO;
+use app\models\dtos\DiagnosticRecord;
 
 class DiagnosisController {
     private PatientDAO $patientDao;
@@ -58,7 +63,7 @@ class DiagnosisController {
         // Využíváme třídu DiagnosticRecord z tvého souboru
         $newRecord = new DiagnosticRecord($date, $patientId, $diagnosisId, $description);
 
-        $success = $this->recordDao->insertRecord($newRecord);
+        $success = $this->recordDao->insertDiagnosticRecord($newRecord);
 
         if ($success) {
             header("Location: index.php?action=detail&id=" . $patientId);

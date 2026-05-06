@@ -1,5 +1,10 @@
 <?php
-include_once Patient::class; include_once PDODatabase::class;
+namespace app\models\daos;
+use app\models\dtos\Patient;
+use app\models\PDO;
+use app\models\PDODatabase;
+use Exception;
+use PDOException;
 
 /**
  * Data access object for Patient

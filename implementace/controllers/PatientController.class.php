@@ -1,9 +1,9 @@
 <?php
-namespace controllers;
-use PatientDAO;
-use PatientRepository;
+namespace app\controllers;
+use app\models\daos\PatientDAO;
+use app\models\dtos\Patient;
+use app\models\repositories\PatientRepository;
 
-include_once \PatientRepository::class; include_once \PatientDAO::class;
 class PatientController {
     private PatientRepository $patientRepo;
     private PatientDAO $patientDao;
@@ -102,6 +102,83 @@ class PatientController {
 
         // 1. Sběr dat z formuláře
         $rc = (int)$_POST['birthCertificateNumber'];
+        $newPatient = $this->getNewPatient($rc);
+
+        // 3. Pokus o uložení
+        $success = $this->patientDao->insertPatient($newPatient);
+
+        if ($success) {
+            // Po úspěchu přesměrujeme na detail, aby lékař mohl hned psát diagnózu
+            header("Location: index.php?action=detail&id=" . $rc);
+            exit;
+        } else {
+            echo $this->twig->render('add_patient.twig', [
+                'error' => 'Chyba při ukládání. Rodné číslo je pravděpodobně již v systému.',
+                'active_page' => 'patients'
+            ]);
+        }
+    }
+
+    /**
+     * Akce: edit_patient_form (PU-10)
+     * Zobrazí formulář pro úpravu pacienta předvyplněný stávajícími daty.
+     */
+    public function showEditPatientForm(): void {
+        $id = (int)($_GET['id'] ?? 0);
+
+        // Získáme pacienta z databáze
+        $patient = $this->patientDao->getPatientById($id);
+
+        if (!$patient) {
+            echo $this->twig->render('error.twig', [
+                'message' => 'Pacient s tímto rodným číslem nebyl nalezen.',
+                'active_page' => 'patients'
+            ]);
+            return;
+        }
+
+        echo $this->twig->render('edit_patient.twig', [
+            'patient' => $patient,
+            'active_page' => 'patients'
+        ]);
+    }
+
+    /**
+     * Akce: edit_patient (PU-10)
+     * Zpracuje odeslaná data a aktualizuje záznam v databázi.
+     */
+    public function processEditPatient(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: index.php?action=patients");
+            exit;
+        }
+
+        // Rodné číslo si vezmeme z URL, protože ve formuláři je disabled/readonly
+        $rc = (int)($_GET['id'] ?? 0);
+
+        $updatedPatient = $this->getNewPatient($rc);
+
+        // Uložíme přes již existující metodu v DAO
+        $success = $this->patientDao->updatePatient($updatedPatient);
+
+        if ($success) {
+            // Po úspěšné úpravě přesměrujeme zpět na detail pacienta
+            header("Location: index.php?action=detail&id=" . $rc);
+            exit;
+        } else {
+            echo $this->twig->render('error.twig', [
+                'message' => 'Nastala chyba při aktualizaci údajů pacienta.',
+                'active_page' => 'patients'
+            ]);
+        }
+    }
+
+    /**
+     * @param int $rc
+     * @return Patient
+     */
+    public function getNewPatient(int $rc): Patient
+    {
         $givenName = trim($_POST['givenName']);
         $surname = trim($_POST['surname']);
         $address = trim($_POST['address']);
@@ -119,19 +196,6 @@ class PatientController {
             $phone,
             $birthdate
         );
-
-        // 3. Pokus o uložení
-        $success = $this->patientDao->insertPatient($newPatient);
-
-        if ($success) {
-            // Po úspěchu přesměrujeme na detail, aby lékař mohl hned psát diagnózu
-            header("Location: index.php?action=detail&id=" . $rc);
-            exit;
-        } else {
-            echo $this->twig->render('add_patient.twig', [
-                'error' => 'Chyba při ukládání. Rodné číslo je pravděpodobně již v systému.',
-                'active_page' => 'patients'
-            ]);
-        }
+        return $newPatient;
     }
 }

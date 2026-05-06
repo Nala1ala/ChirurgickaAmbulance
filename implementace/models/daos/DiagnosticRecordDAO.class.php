@@ -1,5 +1,11 @@
 <?php
-include_once PDODatabase::class; include_once DiagnosticRecord::class;
+namespace app\models\daos;
+use app\models\dtos\DiagnosticRecord;
+use app\models\PDO;
+use app\models\PDODatabase;
+use app\models\PDOException;
+
+include_once \app\models\dtos\DiagnosticRecord::class;
 class DiagnosticRecordDAO {
     private PDO $db;
 

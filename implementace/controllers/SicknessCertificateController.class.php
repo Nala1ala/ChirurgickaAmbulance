@@ -1,8 +1,9 @@
 <?php
-namespace controllers;
+namespace app\controllers;
+use app\models\dtos\SicknessCertificate;
 use PatientDAO;
 use SicknessCertificateDAO;
-use SicknessCertificate;
+
 class SicknessCertificateController {
     private PatientDAO $patientDao;
     private SicknessCertificateDAO $certificateDao;

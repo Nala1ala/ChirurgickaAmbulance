@@ -1,6 +1,15 @@
 <?php
-include_once PatientDAO::class; include_once PrescriptionDAO::class; include_once DiagnosticRecordDAO::class; include_once SicknessCertificateDAO::class;
-class PatientRepository {
+
+namespace app\models\repositories;
+
+use app\models\daos\DiagnosticRecordDAO;
+use app\models\daos\PatientDAO;
+use app\models\daos\PrescriptionDAO;
+use app\models\daos\SicknessCertificateDAO;
+use app\models\dtos\Patient;
+
+class PatientRepository
+{
     private PatientDAO $patientDao;
     private PrescriptionDAO $prescriptionDao;
     private DiagnosticRecordDAO $diagnosticDao;
@@ -9,7 +18,8 @@ class PatientRepository {
     /**
      * New instance initiator - initiates data access objects
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->patientDao = new PatientDAO();
         $this->prescriptionDao = new PrescriptionDAO();
         $this->diagnosticDao = new DiagnosticRecordDAO();
@@ -21,7 +31,8 @@ class PatientRepository {
      * @param int $birthCertificateNumber Patient identifier
      * @return Patient|null Patient DTO if patient exists in database
      */
-    public function getCompletePatientProfile(int $birthCertificateNumber): ?Patient {
+    public function getCompletePatientProfile(int $birthCertificateNumber): ?Patient
+    {
         $patient = $this->patientDao->getPatientById($birthCertificateNumber);
 
         if ($patient === null) {

@@ -1,11 +1,10 @@
 <?php
-namespace controllers;
-use MedicationDAO;
-use PatientDAO;
-use Prescription;
-use PrescriptionDAO;
+namespace app\controllers;
+use app\models\daos\MedicationDAO;
+use app\models\daos\PatientDAO;
+use app\models\daos\PrescriptionDAO;
+use app\models\dtos\Prescription;
 
-include_once \MedicationDAO::class; include_once \PatientDAO::class; include_once \PrescriptionDAO::class; include_once \Prescription::class;
 class PrescriptionController {
     private MedicationDAO $medicineDao;
     private PatientDAO $patientDao;

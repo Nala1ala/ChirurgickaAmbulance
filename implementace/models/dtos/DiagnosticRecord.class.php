@@ -1,9 +1,11 @@
 <?php
 
+namespace app\models\dtos;
 /**
  * Diagnostic record of a specific patient DTO
  */
-class DiagnosticRecord {
+class DiagnosticRecord
+{
     private string $date;
     private int $patientId;
     private int $diagnosisId;
@@ -16,7 +18,8 @@ class DiagnosticRecord {
      * @param int $diagnosisId Diagnosis identifier
      * @param string $description Doctor's description of specific case
      */
-    public function __construct(string $date, int $patientId, int $diagnosisId, string $description) {
+    public function __construct(string $date, int $patientId, int $diagnosisId, string $description)
+    {
         $this->date = $date;
         $this->patientId = $patientId;
         $this->diagnosisId = $diagnosisId;
@@ -24,9 +27,25 @@ class DiagnosticRecord {
     }
 
     // Attribute getters
-    public function getDate(): string { return $this->date; }
-    public function getPatientId(): int { return $this->patientId; }
-    public function getDiagnosisId(): int { return $this->diagnosisId; }
-    public function getDescription(): string { return $this->description; }
+    public function getDate(): string
+    {
+        return $this->date;
+    }
+
+    public function getPatientId(): int
+    {
+        return $this->patientId;
+    }
+
+    public function getDiagnosisId(): int
+    {
+        return $this->diagnosisId;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
 }
+
 ?>
