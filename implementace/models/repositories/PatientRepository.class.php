@@ -11,8 +11,8 @@ use app\models\dtos\Patient;
 class PatientRepository
 {
     private PatientDAO $patientDao;
-    private PrescriptionDAO $prescriptionDao;
-    private DiagnosticRecordDAO $diagnosticDao;
+    private PrescriptionRepository $prescriptionRep;
+    private DiagnosticRecordRepository $diagnosticRep;
     private SicknessCertificateDAO $certificateDao;
 
     /**
@@ -21,14 +21,14 @@ class PatientRepository
     public function __construct()
     {
         $this->patientDao = new PatientDAO();
-        $this->prescriptionDao = new PrescriptionDAO();
-        $this->diagnosticDao = new DiagnosticRecordDAO();
+        $this->prescriptionRep = new PrescriptionRepository();
+        $this->diagnosticRep = new DiagnosticRecordRepository();
         $this->certificateDao = new SicknessCertificateDAO();
     }
 
     /**
      * Get's a patient's complete profile with all details, diagnoses, prescriptions and sickness certificates
-     * @param int $birthCertificateNumber Patient identifier
+     * @param string $birthCertificateNumber Patient identifier
      * @return Patient|null Patient DTO if patient exists in database
      */
     public function getCompletePatientProfile(string $birthCertificateNumber): ?Patient
@@ -39,9 +39,8 @@ class PatientRepository
             return null;
         }
 
-        $patient->setPrescriptions($this->prescriptionDao->getPrescriptionsByPatientId($birthCertificateNumber));
-        $patient->setDiagnoses($this->diagnosticDao->getRecordsByPatientId($birthCertificateNumber));
-        // Poznámka: v SicknessCertificateDAO bychom přidali metodu getCertificatesByPatientId
+        $patient->setPrescriptions($this->prescriptionRep->getPrescriptionsWithNames($birthCertificateNumber));
+        $patient->setDiagnoses($this->diagnosticRep->getRecordsWithNames($birthCertificateNumber));
         $patient->setCertificates($this->certificateDao->getCertificatesByPatientId($birthCertificateNumber));
 
         // Nyní vracíme jeden masivní, plně naplněný objekt

@@ -8,6 +8,9 @@ session_start();
 require_once __DIR__ . '/composer/vendor/autoload.php';
 require_once __DIR__ . '/myAutoloader.inc.php';
 
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 use app\controllers\PatientController;
 
 use app\controllers\DiagnosisController;
