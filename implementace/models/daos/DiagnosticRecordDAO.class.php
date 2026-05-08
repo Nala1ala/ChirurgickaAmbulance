@@ -5,7 +5,7 @@ use PDO;
 use app\models\PDODatabase;
 use PDOException;
 
-class DiagnosticRecordDAO {
+class DiagnosticRecordDAO implements DiagnosticRecordDAOInterface {
     private PDO $db;
 
     /**

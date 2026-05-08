@@ -9,7 +9,7 @@ use PDOException;
 /**
  * Data access object for Patient
  */
-class PatientDAO {
+class PatientDAO implements PatientDAOInterface {
     private PDO $db;
 
     /**

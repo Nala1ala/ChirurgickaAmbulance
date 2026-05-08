@@ -4,7 +4,7 @@ use app\models\dtos\Interaction;
 use PDO;
 use app\models\PDODatabase;
 
-class InteractionDAO {
+class InteractionDAO implements InteractionDAOInterface {
     private PDO $db;
 
     /**

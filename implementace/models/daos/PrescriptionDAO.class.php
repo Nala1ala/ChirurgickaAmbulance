@@ -5,7 +5,7 @@ use app\models\PDODatabase;
 use PDOException;
 use app\models\dtos\Prescription;
 
-class PrescriptionDAO {
+class PrescriptionDAO implements PrescriptionDAOInterface {
     private PDO $db;
 
     /**

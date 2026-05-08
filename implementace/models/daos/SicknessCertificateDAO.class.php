@@ -4,7 +4,7 @@ use app\models\PDODatabase;
 use app\models\dtos\SicknessCertificate;
 use PDO;
 
-class SicknessCertificateDAO {
+class SicknessCertificateDAO implements SicknessCertificateDAOInterface {
     private PDO $db;
 
     /**

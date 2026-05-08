@@ -2,7 +2,7 @@
 
 namespace app\models\repositories;
 
-use app\models\daos\DiagnosticRecordDAO;
+use app\models\daos\DiagnosticRecordDAOInterface;
 use app\models\daos\PatientDAO;
 use app\models\daos\PrescriptionDAO;
 use app\models\daos\SicknessCertificateDAO;

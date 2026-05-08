@@ -4,7 +4,7 @@ use app\models\dtos\Medication;
 use PDO;
 use app\models\PDODatabase;
 
-class MedicationDAO {
+class MedicationDAO implements MedicationDAOInterface {
     private PDO $db;
 
     public function __construct() {
