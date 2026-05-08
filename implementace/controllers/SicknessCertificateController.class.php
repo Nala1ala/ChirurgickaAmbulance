@@ -19,7 +19,7 @@ class SicknessCertificateController {
      * PU-08: Zobrazí formulář pro přidání neschopenky
      */
     public function showAddCertificateForm(): void {
-        $patientId = (int)($_GET['patient_id'] ?? 0);
+        $patientId = ($_GET['patient_id'] ?? 0);
         $patient = $this->patientDao->getPatientById($patientId);
 
         if (!$patient) {
@@ -43,7 +43,7 @@ class SicknessCertificateController {
             exit;
         }
 
-        $patientId = (int)($_GET['id'] ?? 0);
+        $patientId = ($_GET['id'] ?? 0);
         $startDate = $_POST['start_date'];
         $activeAddress = trim($_POST['active_address']);
         $employer = trim($_POST['employer']);
@@ -63,7 +63,7 @@ class SicknessCertificateController {
      * PU-09: Zobrazí formulář pro ukončení neschopenky
      */
     public function showEndCertificateForm(): void {
-        $patientId = (int)($_GET['patient_id'] ?? 0);
+        $patientId = ($_GET['patient_id'] ?? 0);
         $startDate = $_GET['start_date'] ?? '';
 
         echo $this->twig->render('end_certificate.twig', [
@@ -82,7 +82,7 @@ class SicknessCertificateController {
             exit;
         }
 
-        $patientId = (int)($_GET['id'] ?? 0);
+        $patientId = ($_GET['id'] ?? 0);
         $startDate = $_POST['start_date'];
         $endDate = $_POST['end_date'];
 

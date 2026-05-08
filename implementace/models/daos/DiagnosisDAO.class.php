@@ -19,14 +19,14 @@ class DiagnosisDAO {
      * @return Diagnosis[] array of Diagnoses DTO
      */
     public function getAllDiagnoses(): array {
-        $sql = "SELECT * FROM diagnosis ORDER BY name ASC";
+        $sql = "SELECT * FROM diagnosis ORDER BY Name ASC";
         $stmt = $this->db->query($sql);
 
         $diagnoses = [];
         while ($row = $stmt->fetch()) {
             $diagnoses[] = new Diagnosis(
-                (int)$row['id'],
-                $row['name']
+                (int)$row['Id'],
+                $row['Name']
             );
         }
         return $diagnoses;

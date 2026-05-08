@@ -39,10 +39,10 @@ class DiagnosticRecordDAO {
 
     /**
      * Gets all patient's diagnostic records
-     * @param int $patientId Patient identifier
+     * @param string $patientId Patient identifier
      * @return array of DiagnosticRecord DTOs
      */
-    public function getRecordsByPatientId(int $patientId): array {
+    public function getRecordsByPatientId(string $patientId): array {
         $sql = "SELECT * FROM diagnostic_record WHERE Patient_id = :patient_id ORDER BY Date DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':patient_id' => $patientId]);

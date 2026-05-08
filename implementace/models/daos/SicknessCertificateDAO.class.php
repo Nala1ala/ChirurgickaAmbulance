@@ -70,7 +70,12 @@ class SicknessCertificateDAO {
         ]);
     }
 
-    public function getCertificatesByPatientId(int $patientId): array {
+    /**
+     * Gets all patient's sickness certificates ordered by date issued
+     * @param string $patientId Patient identifier
+     * @return array of SicknessCertificate DTOs
+     */
+    public function getCertificatesByPatientId(string $patientId): array {
         $sql = "SELECT * FROM sickness_certificate WHERE Patient_id = :patient_id ORDER BY Date_beginning DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':patient_id' => $patientId]);

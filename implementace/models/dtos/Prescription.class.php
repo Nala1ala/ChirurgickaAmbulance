@@ -7,18 +7,18 @@ namespace app\models\dtos;
 class Prescription
 {
     private string $date;
-    private int $patientId;
+    private string $patientId;
     private int $medicineId;
     private string $commentary;
 
     /**
      * New instance identifier
      * @param string $date Date issued
-     * @param int $patientId Patient identifier
+     * @param string $patientId Patient identifier
      * @param int $medicineId Medication identifier
      * @param string $commentary Doctor's comment
      */
-    public function __construct(string $date, int $patientId, int $medicineId, string $commentary)
+    public function __construct(string $date, string $patientId, int $medicineId, string $commentary)
     {
         $this->date = $date;
         $this->patientId = $patientId;
@@ -32,7 +32,7 @@ class Prescription
         return $this->date;
     }
 
-    public function getPatientId(): int
+    public function getPatientId(): string
     {
         return $this->patientId;
     }

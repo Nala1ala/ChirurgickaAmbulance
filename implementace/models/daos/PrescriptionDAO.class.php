@@ -42,7 +42,7 @@ class PrescriptionDAO {
      * @param int $patientId Patient identifier
      * @return array of Prescription DTOs
      */
-    public function getPrescriptionsByPatientId(int $patientId): array {
+    public function getPrescriptionsByPatientId(string $patientId): array {
         $sql = "SELECT * FROM prescription WHERE Patient_id = :patient_id ORDER BY Date DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':patient_id' => $patientId]);

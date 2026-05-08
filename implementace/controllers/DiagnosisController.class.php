@@ -22,7 +22,7 @@ class DiagnosisController {
      * Zobrazí formulář pro přidání diagnózy (PU-05)
      */
     public function showAddDiagnosisForm(): void {
-        $patientId = (int)($_GET['patient_id'] ?? 0);
+        $patientId = ($_GET['patient_id'] ?? 0);
         $patient = $this->patientDao->getPatientById($patientId);
 
         // Načteme číselník diagnóz!
@@ -50,7 +50,7 @@ class DiagnosisController {
             exit;
         }
 
-        $patientId = (int)($_GET['id'] ?? 0);
+        $patientId = ($_GET['id'] ?? 0);
         $diagnosisId = (int)$_POST['diagnosis_id'];
         $description = trim($_POST['description']);
         $date = date("Y-m-d");

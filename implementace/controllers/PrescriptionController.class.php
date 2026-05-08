@@ -27,7 +27,7 @@ class PrescriptionController {
      * Zobrazí formulář pro předpis léčiva
      */
     public function showAddPrescriptionForm(): void {
-        $patientId = (int)($_GET['patient_id'] ?? 0);
+        $patientId = ($_GET['patient_id'] ?? 0);
 
         $patient = $this->patientDao->getPatientById($patientId);
         $medicines = $this->medicineDao->getAllMedicines();
@@ -65,7 +65,7 @@ class PrescriptionController {
 
         // 1. Vyzvednutí dat z URL a z POST formuláře
         // Všimni si, že v šabloně máme action="index.php?action=add_prescription&id={{ patient_id }}"
-        $patientId = (int)($_GET['id'] ?? 0);
+        $patientId = ($_GET['id'] ?? 0);
         $medicineId = (int)$_POST['medicine_id'];
         $commentary = trim($_POST['commentary']);
         $date = date("Y-m-d");

@@ -3,7 +3,7 @@
 namespace app\models\dtos;
 class SicknessCertificate
 {
-    private int $patientId;
+    private string $patientId;
     private string $startDate;
     private ?string $endDate; // Nullable
     private string $activeAddress;
@@ -11,13 +11,13 @@ class SicknessCertificate
 
     /**
      * New instance constructor
-     * @param int $patientId Patient identifier
+     * @param string $patientId Patient identifier
      * @param string $startDate
      * @param string|null $endDate
      * @param string $activeAddress Address where patient will stay during the duration of the certificate
      * @param string $employer
      */
-    public function __construct(int $patientId, string $startDate, ?string $endDate, string $activeAddress, string $employer)
+    public function __construct(string $patientId, string $startDate, ?string $endDate, string $activeAddress, string $employer)
     {
         $this->patientId = $patientId;
         $this->startDate = $startDate;
@@ -27,7 +27,7 @@ class SicknessCertificate
     }
 
     // Attribute getters
-    public function getPatientId(): int
+    public function getPatientId(): string
     {
         return $this->patientId;
     }
