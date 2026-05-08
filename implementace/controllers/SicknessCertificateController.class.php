@@ -1,18 +1,18 @@
 <?php
 namespace app\controllers;
+use app\models\daos\PatientDAOInterface;
+use app\models\daos\SicknessCertificateDAOInterface;
 use app\models\dtos\SicknessCertificate;
-use app\models\daos\PatientDAO;
-use app\models\daos\SicknessCertificateDAO;
 
 class SicknessCertificateController {
-    private PatientDAO $patientDao;
-    private SicknessCertificateDAO $certificateDao;
+    private PatientDAOInterface $patientDao;
+    private SicknessCertificateDAOInterface $certificateDao;
     private \Twig\Environment $twig;
 
-    public function __construct(\Twig\Environment $twig) {
+    public function __construct(\Twig\Environment $twig, PatientDAOInterface $patientDao, SicknessCertificateDAOInterface $certificateDao) {
         $this->twig = $twig;
-        $this->patientDao = new PatientDAO();
-        $this->certificateDao = new SicknessCertificateDAO();
+        $this->patientDao = $patientDao;
+        $this->certificateDao = $certificateDao;
     }
 
     /**

@@ -12,10 +12,19 @@ $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 use app\controllers\PatientController;
-
 use app\controllers\DiagnosisController;
 use app\controllers\PrescriptionController;
 use app\controllers\SicknessCertificateController;
+use app\models\daos\DiagnosisDAO;
+use app\models\daos\DiagnosticRecordDAO;
+use app\models\daos\InteractionDAO;
+use app\models\daos\MedicationDAO;
+use app\models\daos\PatientDAO;
+use app\models\daos\PrescriptionDAO;
+use app\models\daos\SicknessCertificateDAO;
+use app\models\repositories\DiagnosticRecordRepository;
+use app\models\repositories\PatientRepository;
+use app\models\repositories\PrescriptionRepository;
 
 // 3. Inicializace šablonovacího systému Twig
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/views');
@@ -24,11 +33,21 @@ $twig = new \Twig\Environment($loader, [
     'auto_reload' => true // Během vývoje chceme hned vidět změny v šablonách
 ]);
 
+$patientDAO = new PatientDAO();
+$diagnosisDAO = new DiagnosisDAO();
+$prescriptionDAO = new PrescriptionDAO();
+$sicknessCertificateDAO = new SicknessCertificateDAO();
+$medicationDAO = new MedicationDAO();
+$diagnosticRecordDAO = new DiagnosticRecordDAO();
+$diagnosticRecordRepository = new DiagnosticRecordRepository();
+$prescriptionRepository = new PrescriptionRepository();
+$patientRepository = new PatientRepository($patientDAO, $prescriptionRepository, $diagnosticRecordRepository, $sicknessCertificateDAO);
+
 // 4. Inicializace jednotlivých kontrolerů (předáváme jim Twig)
-$patientController = new PatientController($twig);
-$diagnosisController = new DiagnosisController($twig);
-$prescriptionController = new PrescriptionController($twig);
-$certificateController = new SicknessCertificateController($twig);
+$patientController = new PatientController($twig, $patientRepository, $patientDAO);
+$diagnosisController = new DiagnosisController($twig, $patientDAO, $diagnosisDAO, $diagnosticRecordDAO);
+$prescriptionController = new PrescriptionController($twig, $medicationDAO, $patientDAO, $prescriptionDAO);
+$certificateController = new SicknessCertificateController($twig, $patientDAO, $sicknessCertificateDAO);
 
 // 5. Získání požadované akce z URL (výchozí je seznam pacientů)
 $action = $_GET['action'] ?? 'patients';

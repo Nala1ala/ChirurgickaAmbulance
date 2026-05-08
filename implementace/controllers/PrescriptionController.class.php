@@ -1,25 +1,25 @@
 <?php
 namespace app\controllers;
-use app\models\daos\MedicationDAO;
-use app\models\daos\PatientDAO;
-use app\models\daos\PrescriptionDAO;
+use app\models\daos\MedicationDAOInterface;
+use app\models\daos\PatientDAOInterface;
+use app\models\daos\PrescriptionDAOInterface;
 use app\models\dtos\Prescription;
 
 class PrescriptionController {
-    private MedicationDAO $medicineDao;
-    private PatientDAO $patientDao;
-    private PrescriptionDAO $prescriptionDao;
+    private MedicationDAOInterface $medicineDao;
+    private PatientDAOInterface $patientDao;
+    private PrescriptionDAOInterface $prescriptionDao;
     private \Twig\Environment $twig;
 
     /**
      * New instance initiator - initiates all data access objects
      * @param \Twig\Environment $twig Twig environment for displaying view templates
      */
-    public function __construct(\Twig\Environment $twig) {
+    public function __construct(\Twig\Environment $twig, MedicationDAOInterface $medicineDao, PatientDAOInterface $patientDao, PrescriptionDAOInterface $prescriptionDao) {
         $this->twig = $twig;
-        $this->medicineDao = new MedicationDAO();
-        $this->patientDao = new PatientDAO();
-        $this->prescriptionDao = new PrescriptionDAO();
+        $this->medicineDao = $medicineDao;
+        $this->patientDao = $patientDao;
+        $this->prescriptionDao = $prescriptionDao;
     }
 
     /**

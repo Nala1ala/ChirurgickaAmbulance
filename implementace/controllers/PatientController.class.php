@@ -1,22 +1,22 @@
 <?php
 namespace app\controllers;
-use app\models\daos\PatientDAO;
+use app\models\daos\PatientDAOInterface;
 use app\models\dtos\Patient;
 use app\models\repositories\PatientRepository;
 
 class PatientController {
     private PatientRepository $patientRepo;
-    private PatientDAO $patientDao;
+    private PatientDAOInterface $patientDao;
     private \Twig\Environment $twig;
 
     /**
      * Konstruktor přijímá Twig, aby mohl vykreslovat šablony.
      * Repozitář a DAO si inicializuje sám.
      */
-    public function __construct(\Twig\Environment $twig) {
+    public function __construct(\Twig\Environment $twig, PatientRepository $patientRepo, PatientDAOInterface $patientDao) {
         $this->twig = $twig;
-        $this->patientRepo = new PatientRepository();
-        $this->patientDao = new PatientDAO();
+        $this->patientRepo = $patientRepo;
+        $this->patientDao = $patientDao;
     }
 
     /**

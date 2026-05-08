@@ -4,7 +4,7 @@ namespace app\models\repositories;
 use app\models\PDODatabase;
 use PDO;
 
-class DiagnosticRecordRepository {
+class DiagnosticRecordRepository implements DiagnosticRecordRepositoryInterface {
     private PDO $db;
 
     public function __construct() {

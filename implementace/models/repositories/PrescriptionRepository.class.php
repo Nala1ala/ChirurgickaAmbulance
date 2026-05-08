@@ -4,7 +4,7 @@ namespace app\models\repositories;
 use app\models\PDODatabase;
 use PDO;
 
-class PrescriptionRepository {
+class PrescriptionRepository implements PrescriptionRepositoryInterface {
     private PDO $db;
 
     public function __construct() {

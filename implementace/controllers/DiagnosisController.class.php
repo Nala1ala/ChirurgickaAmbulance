@@ -1,21 +1,21 @@
 <?php
 namespace app\controllers;
-use app\models\daos\DiagnosisDAO;
-use app\models\daos\DiagnosticRecordDAO;
-use app\models\daos\PatientDAO;
+use app\models\daos\DiagnosisDAOInterface;
+use app\models\daos\DiagnosticRecordDAOInterface;
+use app\models\daos\PatientDAOInterface;
 use app\models\dtos\DiagnosticRecord;
 
 class DiagnosisController {
-    private PatientDAO $patientDao;
-    private DiagnosisDAO $diagnosisDao;
-    private DiagnosticRecordDAO $recordDao;
+    private PatientDAOInterface $patientDao;
+    private DiagnosisDAOInterface $diagnosisDao;
+    private DiagnosticRecordDAOInterface $recordDao;
     private \Twig\Environment $twig;
 
-    public function __construct(\Twig\Environment $twig) {
+    public function __construct(\Twig\Environment $twig, PatientDAOInterface $patientDao, DiagnosisDAOInterface $diagnosisDao, DiagnosticRecordDAOInterface $recordDao) {
         $this->twig = $twig;
-        $this->patientDao = new PatientDAO();
-        $this->diagnosisDao = new DiagnosisDAO();
-        $this->recordDao = new DiagnosticRecordDAO();
+        $this->patientDao = $patientDao;
+        $this->diagnosisDao = $diagnosisDao;
+        $this->recordDao = $recordDao;
     }
 
     /**
