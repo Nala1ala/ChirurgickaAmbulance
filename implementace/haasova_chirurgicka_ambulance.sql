@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 03, 2026 at 02:22 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Počítač: 127.0.0.1
+-- Vytvořeno: Sob 09. kvě 2026, 21:46
+-- Verze serveru: 10.4.32-MariaDB
+-- Verze PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `haasova_chirurgicka_ambulance`
+-- Databáze: `haasova_chirurgicka_ambulance`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `diagnosis`
+-- Struktura tabulky `diagnosis`
 --
 
 CREATE TABLE `diagnosis` (
@@ -33,7 +33,7 @@ CREATE TABLE `diagnosis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `diagnosis`
+-- Vypisuji data pro tabulku `diagnosis`
 --
 
 INSERT INTO `diagnosis` (`Id`, `Name`) VALUES
@@ -54,40 +54,41 @@ INSERT INTO `diagnosis` (`Id`, `Name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `diagnostic_record`
+-- Struktura tabulky `diagnostic_record`
 --
 
 CREATE TABLE `diagnostic_record` (
   `Date` datetime NOT NULL,
-  `Patient_id` bigint(20) UNSIGNED NOT NULL,
+  `Patient_id` varchar(10) NOT NULL,
   `Diagnosis_id` int(11) UNSIGNED NOT NULL,
   `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `diagnostic_record`
+-- Vypisuji data pro tabulku `diagnostic_record`
 --
 
 INSERT INTO `diagnostic_record` (`Date`, `Patient_id`, `Diagnosis_id`, `Description`) VALUES
-('2024-01-15 14:15:22', 8958151334, 1, 'Podvrknutí krční páteře - autonehoda'),
-('2024-02-15 11:05:10', 466224231, 6, 'Dietní chyba'),
-('2024-03-11 10:01:12', 9110081508, 8, '3cm rána dlaně pravé ruky'),
-('2024-04-04 10:58:09', 8704152391, 6, 'Dietní chyba'),
-('2024-05-11 07:15:13', 8302075738, 10, 'Rána na palci pravé dolní končetiny - diabetes'),
-('2024-06-22 10:05:30', 8704152391, 6, 'Dietní chyba'),
-('2024-07-08 12:37:09', 8302071646, 7, 'Otok a dekonfigurace zápěstí - zlomenina'),
-('2024-08-15 09:26:25', 9805233680, 9, 'Otok zevního kotníku, bolest'),
-('2024-09-12 22:57:26', 8704152391, 6, 'Dietní chyba'),
-('2024-10-02 07:57:03', 9110081508, 6, 'Žlučníkový záchvat'),
-('2024-10-15 09:23:34', 466224231, 10, 'Drobné rány na obou bércích infikované'),
-('2024-10-15 09:23:34', 466224231, 11, 'Nedokrevnost dolních končetin'),
-('2024-11-22 13:38:04', 8958151334, 3, 'Popálenina 1% - pravé předloktí'),
-('2024-11-25 11:23:11', 8157315672, 13, 'Spasmus svalstva krční páteře, zvýšená bolestivost');
+('2024-01-15 14:15:22', '8958151334', 1, 'Podvrknutí krční páteře - autonehoda'),
+('2024-02-15 11:05:10', '466224231', 6, 'Dietní chyba'),
+('2024-03-11 10:01:12', '9110081508', 8, '3cm rána dlaně pravé ruky'),
+('2024-04-04 10:58:09', '8704152391', 6, 'Dietní chyba'),
+('2024-05-11 07:15:13', '8302075738', 10, 'Rána na palci pravé dolní končetiny - diabetes'),
+('2024-06-22 10:05:30', '8704152391', 6, 'Dietní chyba'),
+('2024-07-08 12:37:09', '8302071646', 7, 'Otok a dekonfigurace zápěstí - zlomenina'),
+('2024-08-15 09:26:25', '9805233680', 9, 'Otok zevního kotníku, bolest'),
+('2024-09-12 22:57:26', '8704152391', 6, 'Dietní chyba'),
+('2024-10-02 07:57:03', '9110081508', 6, 'Žlučníkový záchvat'),
+('2024-10-15 09:23:34', '466224231', 10, 'Drobné rány na obou bércích infikované'),
+('2024-10-15 09:23:34', '466224231', 11, 'Nedokrevnost dolních končetin'),
+('2024-11-22 13:38:04', '8958151334', 3, 'Popálenina 1% - pravé předloktí'),
+('2024-11-25 11:23:11', '8157315672', 13, 'Spasmus svalstva krční páteře, zvýšená bolestivost'),
+('2026-05-07 00:00:00', '8302071646', 10, 'Infekce podkoží ve spodní části pravé dlaně');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `interaction`
+-- Struktura tabulky `interaction`
 --
 
 CREATE TABLE `interaction` (
@@ -97,7 +98,7 @@ CREATE TABLE `interaction` (
 ) ;
 
 --
--- Dumping data for table `interaction`
+-- Vypisuji data pro tabulku `interaction`
 --
 
 INSERT INTO `interaction` (`Queried_substance`, `Found_substance`, `Description`) VALUES
@@ -112,7 +113,7 @@ INSERT INTO `interaction` (`Queried_substance`, `Found_substance`, `Description`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medication`
+-- Struktura tabulky `medication`
 --
 
 CREATE TABLE `medication` (
@@ -123,7 +124,7 @@ CREATE TABLE `medication` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `medication`
+-- Vypisuji data pro tabulku `medication`
 --
 
 INSERT INTO `medication` (`Id`, `Name`, `Medicinal_substance`, `Form`) VALUES
@@ -148,7 +149,7 @@ INSERT INTO `medication` (`Id`, `Name`, `Medicinal_substance`, `Form`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medicinal_substance`
+-- Struktura tabulky `medicinal_substance`
 --
 
 CREATE TABLE `medicinal_substance` (
@@ -157,7 +158,7 @@ CREATE TABLE `medicinal_substance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `medicinal_substance`
+-- Vypisuji data pro tabulku `medicinal_substance`
 --
 
 INSERT INTO `medicinal_substance` (`Name`, `Category`) VALUES
@@ -175,11 +176,11 @@ INSERT INTO `medicinal_substance` (`Name`, `Category`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `patient`
+-- Struktura tabulky `patient`
 --
 
 CREATE TABLE `patient` (
-  `Birth_certificate_number` bigint(20) UNSIGNED NOT NULL,
+  `Birth_certificate_number` varchar(10) NOT NULL,
   `Given_name` varchar(255) NOT NULL,
   `Surname` varchar(255) NOT NULL,
   `Permanent_address` varchar(255) NOT NULL,
@@ -189,57 +190,60 @@ CREATE TABLE `patient` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `patient`
+-- Vypisuji data pro tabulku `patient`
 --
 
 INSERT INTO `patient` (`Birth_certificate_number`, `Given_name`, `Surname`, `Permanent_address`, `Insurance_company_number`, `Telephone_number`, `Birthdate`) VALUES
-(203014713, 'Michal', 'Krytý', 'Zelená 17, Klatovy', 207, 606309421, '2002-03-01'),
-(261307893, 'Julie', 'Fučíková', 'Manětínská 14, Plzeň', 111, 601234765, '2002-11-30'),
-(466224231, 'Jaroslava', 'Srpková', 'Plzenecká 13, Plzeň', 211, 602224567, '1946-12-24'),
-(1559110729, 'Charlotte', 'Kolářová', 'Přehýšov 214', 111, 703848321, '2015-09-11'),
-(8157315672, 'Veronika', 'Malá', 'Klatovská 20, Plzeň', 211, 608765567, '1981-07-31'),
-(8302071646, 'Josef', 'Novák', 'Nerudova 3, Plzeň', 211, 605786543, '1983-02-07'),
-(8302075738, 'Josef', 'Novák', 'Klatovská 15, Přeštice', 201, 731342675, '1983-02-07'),
-(8704152391, 'Petr', 'Nádeník', 'Boženy Němcové 12, Nýřany', 205, 603752987, '1987-04-15'),
-(8958151334, 'Petra', 'Bartůňková', 'Radyňská 123, Starý Plzenec', 211, 602345765, '1989-08-15'),
-(9110081508, 'Jan', 'Kolář', 'Přehýšov 214', 111, 703848321, '1991-10-08'),
-(9805233680, 'Kevin', 'Červeňák', 'Guldenerova 4, Plzeň', 207, 604568234, '1998-05-23');
+('0010195636', 'Knut', 'Hlahol', 'Sicilská 12, Zlatá Bula', 111, 721732745, '2000-10-19'),
+('0203014713', 'Michal', 'Krytý', 'Zelená 17, Klatovy', 207, 606309421, '2002-03-01'),
+('0261307893', 'Julie', 'Fučíková', 'Manětínská 14, Plzeň', 111, 601234765, '2002-11-30'),
+('1559110729', 'Charlotte', 'Kolářová', 'Přehýšov 214', 111, 703848321, '2015-09-11'),
+('466224231', 'Jaroslava', 'Srpková', 'Plzenecká 13, Plzeň', 211, 602224567, '1946-12-24'),
+('8157315672', 'Veronika', 'Malá', 'Klatovská 20, Plzeň', 211, 608765567, '1981-07-31'),
+('8302071646', 'Josef', 'Novák', 'Nerudova 3, Plzeň', 211, 605786543, '1983-02-07'),
+('8302075738', 'Josef', 'Novák', 'Klatovská 15, Přeštice', 201, 731342675, '1983-02-07'),
+('8704152391', 'Petr', 'Nádeník', 'Boženy Němcové 12, Nýřany', 205, 603752987, '1987-04-15'),
+('8958151334', 'Petra', 'Bartůňková', 'Radyňská 123, Starý Plzenec', 211, 602345765, '1989-08-15'),
+('9110081508', 'Jan', 'Kolář', 'Přehýšov 214', 111, 703848321, '1991-10-08'),
+('9805233680', 'Kevin', 'Červeňák', 'Guldenerova 4, Plzeň', 207, 604568234, '1998-05-23');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `prescription`
+-- Struktura tabulky `prescription`
 --
 
 CREATE TABLE `prescription` (
   `Date` date NOT NULL,
-  `Patient_id` bigint(20) UNSIGNED NOT NULL,
+  `Patient_id` varchar(10) NOT NULL,
   `Medicine_id` int(11) UNSIGNED NOT NULL,
   `Commentary` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `prescription`
+-- Vypisuji data pro tabulku `prescription`
 --
 
 INSERT INTO `prescription` (`Date`, `Patient_id`, `Medicine_id`, `Commentary`) VALUES
-('2024-01-15', 8958151334, 14, '1/2 - 1/2 - 1 tableta'),
-('2024-05-11', 8302075738, 10, '1 tableta po 6 hodinách'),
-('2024-07-08', 8302071646, 5, '2x denně při bolesti'),
-('2024-08-15', 9805233680, 1, '1 injekce denně'),
-('2024-10-02', 9110081508, 6, 'Při bolesti'),
-('2024-10-15', 466224231, 13, '1 tableta po 8 hodinách'),
-('2024-10-15', 466224231, 17, '2 tablety 3x denně'),
-('2024-11-22', 8958151334, 11, '1 tableta po 12 hodinách');
+('2024-01-15', '8958151334', 14, '1/2 - 1/2 - 1 tableta'),
+('2024-05-11', '8302075738', 10, '1 tableta po 6 hodinách'),
+('2024-07-08', '8302071646', 5, '2x denně při bolesti'),
+('2024-08-15', '9805233680', 1, '1 injekce denně'),
+('2024-10-02', '9110081508', 6, 'Při bolesti'),
+('2024-10-15', '466224231', 13, '1 tableta po 8 hodinách'),
+('2024-10-15', '466224231', 17, '2 tablety 3x denně'),
+('2024-11-22', '8958151334', 11, '1 tableta po 12 hodinách'),
+('2026-05-07', '0010195636', 8, 'Přetrvávající dráždivý kašel'),
+('2026-05-07', '8302071646', 16, '1× denně mazat po umytí');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sickness_certificate`
+-- Struktura tabulky `sickness_certificate`
 --
 
 CREATE TABLE `sickness_certificate` (
-  `Patient_id` bigint(20) UNSIGNED NOT NULL,
+  `Patient_id` varchar(10) NOT NULL,
   `Date_beginning` date NOT NULL,
   `Date_end` date DEFAULT NULL,
   `Active_address` varchar(255) NOT NULL,
@@ -247,127 +251,129 @@ CREATE TABLE `sickness_certificate` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `sickness_certificate`
+-- Vypisuji data pro tabulku `sickness_certificate`
 --
 
 INSERT INTO `sickness_certificate` (`Patient_id`, `Date_beginning`, `Date_end`, `Active_address`, `Employer`) VALUES
-(203014713, '2024-11-25', NULL, 'Koterovská 37, Plzeň', 'Škoda Transportation'),
-(8302071646, '2024-07-08', '2024-08-15', 'Nerudova 3, Plzeň', 'Restaurace U oběšence'),
-(8958151334, '2024-01-15', '2024-02-02', 'Kamínková 12, Plzeň', 'Magistrát města Plzně'),
-(8958151334, '2024-11-22', NULL, 'Radyňská 123, Starý Plzenec', 'Magistrát města Plzně'),
-(9110081508, '2024-03-11', '2024-03-21', 'Přehýšov 214', 'Zemědělské družstvo Blatnice'),
-(9110081508, '2024-10-02', '2024-10-05', 'Přehýšov 214', 'Novemcar Město Tauškov');
+('0010195636', '2026-05-07', NULL, 'Sicilská 12, Zlatá Bula', 'Zimomraz s. r. o.'),
+('0203014713', '2024-11-25', NULL, 'Koterovská 37, Plzeň', 'Škoda Transportation'),
+('8302071646', '2024-07-08', '2024-08-15', 'Nerudova 3, Plzeň', 'Restaurace U oběšence'),
+('8302071646', '2026-05-06', '2026-05-08', 'Nerudova 3, Plzeň', 'Restaurace U oběšence'),
+('8958151334', '2024-01-15', '2024-02-02', 'Kamínková 12, Plzeň', 'Magistrát města Plzně'),
+('8958151334', '2024-11-22', NULL, 'Radyňská 123, Starý Plzenec', 'Magistrát města Plzně'),
+('9110081508', '2024-03-11', '2024-03-21', 'Přehýšov 214', 'Zemědělské družstvo Blatnice'),
+('9110081508', '2024-10-02', '2024-10-05', 'Přehýšov 214', 'Novemcar Město Tauškov');
 
 --
--- Indexes for dumped tables
+-- Indexy pro exportované tabulky
 --
 
 --
--- Indexes for table `diagnosis`
+-- Indexy pro tabulku `diagnosis`
 --
 ALTER TABLE `diagnosis`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Indexes for table `diagnostic_record`
+-- Indexy pro tabulku `diagnostic_record`
 --
 ALTER TABLE `diagnostic_record`
   ADD PRIMARY KEY (`Date`,`Patient_id`,`Diagnosis_id`) USING BTREE,
-  ADD KEY `diagnostika_pacient_foreign` (`Patient_id`),
-  ADD KEY `diagnostika_diagnoza_foreign` (`Diagnosis_id`);
+  ADD KEY `record_diagnosis_foreign` (`Diagnosis_id`) USING BTREE,
+  ADD KEY `record_patient_foreign` (`Patient_id`);
 
 --
--- Indexes for table `interaction`
+-- Indexy pro tabulku `interaction`
 --
 ALTER TABLE `interaction`
   ADD PRIMARY KEY (`Queried_substance`,`Found_substance`) USING BTREE,
   ADD KEY `interakce_zjistena_latka_foreign` (`Found_substance`);
 
 --
--- Indexes for table `medication`
+-- Indexy pro tabulku `medication`
 --
 ALTER TABLE `medication`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `lecivo_leciva_latka_foreign` (`Medicinal_substance`);
 
 --
--- Indexes for table `medicinal_substance`
+-- Indexy pro tabulku `medicinal_substance`
 --
 ALTER TABLE `medicinal_substance`
   ADD PRIMARY KEY (`Name`);
 
 --
--- Indexes for table `patient`
+-- Indexy pro tabulku `patient`
 --
 ALTER TABLE `patient`
   ADD PRIMARY KEY (`Birth_certificate_number`);
 
 --
--- Indexes for table `prescription`
+-- Indexy pro tabulku `prescription`
 --
 ALTER TABLE `prescription`
   ADD PRIMARY KEY (`Date`,`Patient_id`,`Medicine_id`) USING BTREE,
-  ADD KEY `Pacient_foreign` (`Patient_id`),
-  ADD KEY `Lecivo_foreign` (`Medicine_id`);
+  ADD KEY `Medication_foreign` (`Medicine_id`) USING BTREE,
+  ADD KEY `Patient_foreign` (`Patient_id`);
 
 --
--- Indexes for table `sickness_certificate`
+-- Indexy pro tabulku `sickness_certificate`
 --
 ALTER TABLE `sickness_certificate`
   ADD PRIMARY KEY (`Patient_id`,`Date_beginning`) USING BTREE;
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pro tabulky
 --
 
 --
--- AUTO_INCREMENT for table `diagnosis`
+-- AUTO_INCREMENT pro tabulku `diagnosis`
 --
 ALTER TABLE `diagnosis`
   MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `medication`
+-- AUTO_INCREMENT pro tabulku `medication`
 --
 ALTER TABLE `medication`
   MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- Constraints for dumped tables
+-- Omezení pro exportované tabulky
 --
 
 --
--- Constraints for table `diagnostic_record`
+-- Omezení pro tabulku `diagnostic_record`
 --
 ALTER TABLE `diagnostic_record`
-  ADD CONSTRAINT `diagnostika_diagnoza_foreign` FOREIGN KEY (`Diagnosis_id`) REFERENCES `diagnosis` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `diagnostika_pacient_foreign` FOREIGN KEY (`Patient_id`) REFERENCES `patient` (`Birth_certificate_number`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `record_diagnosis_foreign` FOREIGN KEY (`Diagnosis_id`) REFERENCES `diagnosis` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `record_patient_foreign` FOREIGN KEY (`Patient_id`) REFERENCES `patient` (`Birth_certificate_number`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `interaction`
+-- Omezení pro tabulku `interaction`
 --
 ALTER TABLE `interaction`
   ADD CONSTRAINT `interakce_zjistena_latka_foreign` FOREIGN KEY (`Found_substance`) REFERENCES `medicinal_substance` (`Name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `interakce_zjistovana_latka_foreign` FOREIGN KEY (`Queried_substance`) REFERENCES `medicinal_substance` (`Name`);
 
 --
--- Constraints for table `medication`
+-- Omezení pro tabulku `medication`
 --
 ALTER TABLE `medication`
   ADD CONSTRAINT `lecivo_leciva_latka_foreign` FOREIGN KEY (`Medicinal_substance`) REFERENCES `medicinal_substance` (`Name`);
 
 --
--- Constraints for table `prescription`
+-- Omezení pro tabulku `prescription`
 --
 ALTER TABLE `prescription`
-  ADD CONSTRAINT `Lecivo_foreign` FOREIGN KEY (`Medicine_id`) REFERENCES `medication` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `Pacient_foreign` FOREIGN KEY (`Patient_id`) REFERENCES `patient` (`Birth_certificate_number`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `Medication_foreign` FOREIGN KEY (`Medicine_id`) REFERENCES `medication` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Patient_foreign` FOREIGN KEY (`Patient_id`) REFERENCES `patient` (`Birth_certificate_number`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `sickness_certificate`
+-- Omezení pro tabulku `sickness_certificate`
 --
 ALTER TABLE `sickness_certificate`
-  ADD CONSTRAINT `neschopenka_pacient_foreign` FOREIGN KEY (`Patient_id`) REFERENCES `patient` (`Birth_certificate_number`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `certificate_patient_foreign` FOREIGN KEY (`Patient_id`) REFERENCES `patient` (`Birth_certificate_number`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
