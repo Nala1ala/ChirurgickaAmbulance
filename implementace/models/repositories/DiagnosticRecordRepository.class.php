@@ -1,12 +1,16 @@
 <?php
 namespace app\models\repositories;
 
+use app\models\dtos\DiagnosticRecord;
 use app\models\PDODatabase;
 use PDO;
 
 class DiagnosticRecordRepository implements DiagnosticRecordRepositoryInterface {
     private PDO $db;
 
+    /**
+     * New instance initiator - requests database connection
+     */
     public function __construct() {
         $this->db = PDODatabase::getInstance()->getConnection();
     }
@@ -15,7 +19,7 @@ class DiagnosticRecordRepository implements DiagnosticRecordRepositoryInterface 
      * Vrátí seznam diagnóz pacienta i s jejich názvy z číselníku
      */
     public function getRecordsWithNames(string $patientId): array {
-        $sql = "SELECT dr.Date, d.Name as DiagnosisName, dr.Description
+        $sql = "SELECT dr.Date, d.Name as DiagnosisName, dr.Description, dr.Diagnosis_id
                 FROM diagnostic_record dr
                 JOIN diagnosis d ON dr.Diagnosis_id = d.Id
                 WHERE dr.Patient_id = :patient_id
@@ -24,6 +28,13 @@ class DiagnosticRecordRepository implements DiagnosticRecordRepositoryInterface 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':patient_id' => $patientId]);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $records = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $record = new DiagnosticRecord($row['Date'], $patientId, (int)$row['Diagnosis_id'], $row['Description']);
+            $record->setDiagnosisName($row['DiagnosisName']);
+            $records[] = $record;
+        }
+
+        return $records;
     }
 }

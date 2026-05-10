@@ -12,8 +12,11 @@ class PrescriptionController {
     private \Twig\Environment $twig;
 
     /**
-     * New instance initiator - initiates all data access objects
-     * @param \Twig\Environment $twig Twig environment for displaying view templates
+     * Creates a prescription controller with required data access dependencies.
+     * @param \Twig\Environment $twig Twig environment for rendering templates
+     * @param MedicationDAOInterface $medicineDao Medication data access object
+     * @param PatientDAOInterface $patientDao Patient data access object
+     * @param PrescriptionDAOInterface $prescriptionDao Prescription data access object
      */
     public function __construct(\Twig\Environment $twig, MedicationDAOInterface $medicineDao, PatientDAOInterface $patientDao, PrescriptionDAOInterface $prescriptionDao) {
         $this->twig = $twig;
@@ -23,8 +26,7 @@ class PrescriptionController {
     }
 
     /**
-     * Akce: add_prescription_form (PU-04)
-     * Zobrazí formulář pro předpis léčiva
+     * Shows the form for adding a prescription to a patient.
      */
     public function showAddPrescriptionForm(): void {
         $patientId = ($_GET['patient_id'] ?? 0);
@@ -49,12 +51,7 @@ class PrescriptionController {
     }
 
     /**
-     * Akce: add_prescription (PU-04)
-     * Zpracuje odeslaný formulář (tuto metodu dopíšeme vzápětí)
-     */
-    /**
-     * Akce: add_prescription (PU-04)
-     * Zpracuje odeslaný formulář
+     * Processes submitted prescription data and stores a new prescription.
      */
     public function processAddPrescription(): void {
         // Kontrola, že sem uživatel nepřišel jen zadáním URL, ale opravdu odeslal formulář

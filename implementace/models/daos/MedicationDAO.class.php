@@ -7,6 +7,9 @@ use app\models\PDODatabase;
 class MedicationDAO implements MedicationDAOInterface {
     private PDO $db;
 
+    /**
+     * New instance initiator - requests database connection
+     */
     public function __construct() {
         $this->db = PDODatabase::getInstance()->getConnection();
     }

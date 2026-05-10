@@ -27,32 +27,56 @@ class SicknessCertificate
     }
 
     // Attribute getters
+    /**
+     * Gets the patient identifier.
+     * @return string Patient identifier
+     */
     public function getPatientId(): string
     {
         return $this->patientId;
     }
 
+    /**
+     * Gets the certificate start date.
+     * @return string Start date
+     */
     public function getStartDate(): string
     {
         return $this->startDate;
     }
 
+    /**
+     * Gets the certificate end date.
+     * @return string|null End date
+     */
     public function getEndDate(): ?string
     {
         return $this->endDate;
     }
 
+    /**
+     * Gets the patient's active address during sickness.
+     * @return string Active address
+     */
     public function getActiveAddress(): string
     {
         return $this->activeAddress;
     }
 
+    /**
+     * Gets the patient's employer.
+     * @return string Employer
+     */
     public function getEmployer(): string
     {
         return $this->employer;
     }
 
     // Attribute setters
+    /**
+     * Sets the certificate end date.
+     * @param string $endDate End date
+     */
     public function setEndDate(string $endDate): void
     {
         $this->endDate = $endDate;

@@ -4,6 +4,9 @@ use app\models\dtos\Diagnosis;
 use PDO;
 use app\models\PDODatabase;
 
+/**
+ * Data access object for Diagnosis
+ */
 class DiagnosisDAO implements DiagnosisDAOInterface {
     private PDO $db;
 

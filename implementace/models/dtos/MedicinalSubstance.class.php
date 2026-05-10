@@ -21,11 +21,19 @@ class MedicinalSubstance
     }
 
     // Attribute getters
+    /**
+     * Gets the medicinal substance name.
+     * @return string Substance name
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * Gets the medicinal substance category.
+     * @return string Substance category
+     */
     public function getCategory(): string
     {
         return $this->category;

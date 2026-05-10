@@ -10,8 +10,10 @@ class PatientController {
     private \Twig\Environment $twig;
 
     /**
-     * Konstruktor přijímá Twig, aby mohl vykreslovat šablony.
-     * Repozitář a DAO si inicializuje sám.
+     * Creates a patient controller with required data access dependencies.
+     * @param \Twig\Environment $twig Twig environment for rendering templates
+     * @param PatientRepository $patientRepo Repository for complete patient profiles
+     * @param PatientDAOInterface $patientDao Patient data access object
      */
     public function __construct(\Twig\Environment $twig, PatientRepository $patientRepo, PatientDAOInterface $patientDao) {
         $this->twig = $twig;
@@ -20,8 +22,7 @@ class PatientController {
     }
 
     /**
-     * Akce: index
-     * Zobrazí výchozí seznam všech pacientů.
+     * Shows the default list of all patients.
      */
     public function index(): void {
         // V reálné aplikaci by zde mohla být metoda getAllPatients()
@@ -35,8 +36,7 @@ class PatientController {
     }
 
     /**
-     * Akce: search_patients
-     * Zpracuje vyhledávací formulář z patient_list.twig
+     * Processes the patient search form and renders matching patients.
      */
     public function search(): void {
         $query = $_GET['query'] ?? '';
@@ -59,8 +59,7 @@ class PatientController {
     }
 
     /**
-     * Akce: detail (PU-03)
-     * Zobrazí kompletní kartu pacienta včetně historie.
+     * Shows a complete patient profile including related medical records.
      */
     public function detail(): void {
         $id = ($_GET['id'] ?? 0);
@@ -81,8 +80,7 @@ class PatientController {
     }
 
     /**
-     * Akce: add_patient_form (PU-01)
-     * Pouze zobrazí prázdný formulář.
+     * Shows an empty form for creating a new patient.
      */
     public function showAddPatientForm(): void {
         echo $this->twig->render('add_patient.twig', [
@@ -91,8 +89,7 @@ class PatientController {
     }
 
     /**
-     * Akce: add_patient (PU-01)
-     * Zpracuje POST data z formuláře a uloží pacienta.
+     * Processes submitted patient data and stores a new patient.
      */
     public function processAddPatient(): void {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -129,8 +126,7 @@ class PatientController {
     }
 
     /**
-     * Akce: edit_patient_form (PU-10)
-     * Zobrazí formulář pro úpravu pacienta předvyplněný stávajícími daty.
+     * Shows a form for editing an existing patient.
      */
     public function showEditPatientForm(): void {
         $id = ($_GET['id'] ?? 0);
@@ -153,8 +149,7 @@ class PatientController {
     }
 
     /**
-     * Akce: edit_patient (PU-10)
-     * Zpracuje odeslaná data a aktualizuje záznam v databázi.
+     * Processes submitted patient changes and updates the patient record.
      */
     public function processEditPatient(): void {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -197,8 +192,9 @@ class PatientController {
     }
 
     /**
-     * @param string $rc
-     * @return Patient
+     * Creates a Patient DTO from submitted form data.
+     * @param string $rc Patient birth certificate number
+     * @return Patient New patient DTO
      */
     public function getNewPatient(string $rc): Patient
     {

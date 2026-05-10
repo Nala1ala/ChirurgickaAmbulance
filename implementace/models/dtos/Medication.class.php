@@ -27,21 +27,37 @@ class Medication
     }
 
     // Attribute getters
+    /**
+     * Gets the medication identifier.
+     * @return int|null Medication identifier
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Gets the medication name.
+     * @return string Medication name
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * Gets the medicinal substance name.
+     * @return string Medicinal substance name
+     */
     public function getMedicinalSubstance(): string
     {
         return $this->medicinalSubstance;
     }
 
+    /**
+     * Gets the medication form.
+     * @return string Medication form
+     */
     public function getForm(): string
     {
         return $this->form;

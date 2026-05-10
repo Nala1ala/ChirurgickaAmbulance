@@ -11,6 +11,13 @@ class DiagnosisController {
     private DiagnosticRecordDAOInterface $recordDao;
     private \Twig\Environment $twig;
 
+    /**
+     * Creates a diagnosis controller with required data access dependencies.
+     * @param \Twig\Environment $twig Twig environment for rendering templates
+     * @param PatientDAOInterface $patientDao Patient data access object
+     * @param DiagnosisDAOInterface $diagnosisDao Diagnosis data access object
+     * @param DiagnosticRecordDAOInterface $recordDao Diagnostic record data access object
+     */
     public function __construct(\Twig\Environment $twig, PatientDAOInterface $patientDao, DiagnosisDAOInterface $diagnosisDao, DiagnosticRecordDAOInterface $recordDao) {
         $this->twig = $twig;
         $this->patientDao = $patientDao;
@@ -19,7 +26,7 @@ class DiagnosisController {
     }
 
     /**
-     * Zobrazí formulář pro přidání diagnózy (PU-05)
+     * Shows the form for adding a diagnostic record to a patient.
      */
     public function showAddDiagnosisForm(): void {
         $patientId = ($_GET['patient_id'] ?? 0);
@@ -42,7 +49,7 @@ class DiagnosisController {
     }
 
     /**
-     * Zpracuje odeslaný formulář
+     * Processes submitted diagnostic record data.
      */
     public function processAddDiagnosis(): void {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

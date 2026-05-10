@@ -17,9 +17,9 @@ class PDODatabase
      */
     private function __construct() {
         $host = $_ENV['DB_HOST'] ?? '127.0.0.1';
-        $db   = $_ENV['DB_DATABASE'] ?? 'haasova_chirurgicka_ambulance';
-        $user = $_ENV['DB_USERNAME'] ?? 'root';
-        $pass = $_ENV['DB_PASSWORD'] ?? '';
+        $db   = $_ENV['DB_NAME'] ?? 'haasova_chirurgicka_ambulance';
+        $user = $_ENV['DB_USER'] ?? 'root';
+        $pass = $_ENV['DB_PASS'] ?? '';
         $charset = $_ENV['DB_CHARSET'] ?? 'utf8mb4';
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

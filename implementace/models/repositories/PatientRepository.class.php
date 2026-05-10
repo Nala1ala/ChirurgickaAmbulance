@@ -2,11 +2,8 @@
 
 namespace app\models\repositories;
 
-use app\models\daos\DiagnosticRecordDAOInterface;
-use app\models\daos\PatientDAO;
+
 use app\models\daos\PatientDAOInterface;
-use app\models\daos\PrescriptionDAO;
-use app\models\daos\PrescriptionDAOInterface;
 use app\models\daos\SicknessCertificateDAO;
 use app\models\daos\SicknessCertificateDAOInterface;
 use app\models\dtos\Patient;
@@ -14,14 +11,14 @@ use app\models\dtos\Patient;
 class PatientRepository
 {
     private PatientDAOInterface $patientDao;
-    private PrescriptionRepository $prescriptionRep;
-    private DiagnosticRecordRepository $diagnosticRep;
+    private PrescriptionRepositoryInterface $prescriptionRep;
+    private DiagnosticRecordRepositoryInterface $diagnosticRep;
     private SicknessCertificateDAOInterface $certificateDao;
 
     /**
      * New instance initiator - initiates data access objects
      */
-    public function __construct(PatientDAOInterface $patientDao, PrescriptionRepository $prescriptionRep, DiagnosticRecordRepository $diagnosticRep, SicknessCertificateDAO $certificateDao)
+    public function __construct(PatientDAOInterface $patientDao, PrescriptionRepositoryInterface $prescriptionRep, DiagnosticRecordRepositoryInterface $diagnosticRep, SicknessCertificateDAO $certificateDao)
     {
         $this->patientDao = $patientDao;
         $this->prescriptionRep = $prescriptionRep;

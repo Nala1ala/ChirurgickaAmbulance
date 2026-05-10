@@ -21,11 +21,19 @@ class Diagnosis
     }
 
     // Attribute getters
+    /**
+     * Gets the diagnosis identifier.
+     * @return int|null Diagnosis identifier
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Gets the diagnosis name.
+     * @return string Diagnosis name
+     */
     public function getName(): string
     {
         return $this->name;

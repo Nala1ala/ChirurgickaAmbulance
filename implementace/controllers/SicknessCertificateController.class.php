@@ -9,14 +9,21 @@ class SicknessCertificateController {
     private SicknessCertificateDAOInterface $certificateDao;
     private \Twig\Environment $twig;
 
+    /**
+     * Creates a sickness certificate controller with required data access dependencies.
+     * @param \Twig\Environment $twig Twig environment for rendering templates
+     * @param PatientDAOInterface $patientDao Patient data access object
+     * @param SicknessCertificateDAOInterface $certificateDao Sickness certificate data access object
+     */
     public function __construct(\Twig\Environment $twig, PatientDAOInterface $patientDao, SicknessCertificateDAOInterface $certificateDao) {
         $this->twig = $twig;
         $this->patientDao = $patientDao;
         $this->certificateDao = $certificateDao;
     }
 
+
     /**
-     * PU-08: Zobrazí formulář pro přidání neschopenky
+     * Shows the form for adding a sickness certificate to a patient.
      */
     public function showAddCertificateForm(): void {
         $patientId = ($_GET['patient_id'] ?? 0);
@@ -35,7 +42,7 @@ class SicknessCertificateController {
     }
 
     /**
-     * PU-08: Zpracuje založení neschopenky
+     * Processes submitted sickness certificate data and stores a new certificate.
      */
     public function processAddCertificate(): void {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -60,7 +67,7 @@ class SicknessCertificateController {
     }
 
     /**
-     * PU-09: Zobrazí formulář pro ukončení neschopenky
+     * Shows the form for ending an active sickness certificate.
      */
     public function showEndCertificateForm(): void {
         $patientId = ($_GET['patient_id'] ?? 0);
@@ -74,7 +81,7 @@ class SicknessCertificateController {
     }
 
     /**
-     * PU-09: Zpracuje ukončení neschopenky
+     * Processes submitted sickness certificate end date data.
      */
     public function processEndCertificate(): void {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

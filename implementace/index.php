@@ -5,7 +5,7 @@ session_start();
 
 // 1. Načtení závislostí a knihoven (Twig)
 // Předpokládáme použití Composeru pro načtení Twigu
-require_once __DIR__ . '/composer/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/myAutoloader.inc.php';
 
 $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
