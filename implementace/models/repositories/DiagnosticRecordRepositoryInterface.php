@@ -2,6 +2,9 @@
 
 namespace app\models\repositories;
 
+/**
+ * Defines diagnostic record read operations with joined diagnosis data.
+ */
 interface DiagnosticRecordRepositoryInterface
 {
     /**

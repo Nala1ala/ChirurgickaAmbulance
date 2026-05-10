@@ -5,6 +5,9 @@ use app\models\dtos\Prescription;
 use app\models\PDODatabase;
 use PDO;
 
+/**
+ * Repository for prescriptions enriched with medication details.
+ */
 class PrescriptionRepository implements PrescriptionRepositoryInterface {
     private PDO $db;
 

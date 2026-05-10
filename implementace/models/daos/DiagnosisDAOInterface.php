@@ -4,7 +4,7 @@ namespace app\models\daos;
 use app\models\dtos\Diagnosis;
 
 /**
- * Inrterface for data access object for Diagnosis
+ * Defines diagnosis persistence operations.
  */
 interface DiagnosisDAOInterface
 {

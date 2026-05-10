@@ -4,6 +4,9 @@ namespace app\models\daos;
 
 use app\models\dtos\SicknessCertificate;
 
+/**
+ * Defines sickness certificate persistence and lookup operations.
+ */
 interface SicknessCertificateDAOInterface
 {
     /**

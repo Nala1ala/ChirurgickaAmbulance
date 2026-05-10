@@ -2,6 +2,9 @@
 
 namespace app\models\repositories;
 
+/**
+ * Defines prescription read operations with joined medication data.
+ */
 interface PrescriptionRepositoryInterface
 {
     /**

@@ -3,6 +3,9 @@
 namespace app\models\daos;
 use app\models\dtos\Patient;
 
+/**
+ * Defines patient persistence and search operations.
+ */
 interface PatientDAOInterface
 {
     /**

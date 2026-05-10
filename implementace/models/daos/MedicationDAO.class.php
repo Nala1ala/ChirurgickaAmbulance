@@ -4,6 +4,9 @@ use app\models\dtos\Medication;
 use PDO;
 use app\models\PDODatabase;
 
+/**
+ * Data access object for medications.
+ */
 class MedicationDAO implements MedicationDAOInterface {
     private PDO $db;
 

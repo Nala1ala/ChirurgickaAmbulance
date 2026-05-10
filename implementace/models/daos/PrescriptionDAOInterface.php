@@ -4,6 +4,9 @@ namespace app\models\daos;
 
 use app\models\dtos\Prescription;
 
+/**
+ * Defines prescription persistence and lookup operations.
+ */
 interface PrescriptionDAOInterface
 {
     /**

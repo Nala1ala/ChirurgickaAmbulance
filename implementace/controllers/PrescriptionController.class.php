@@ -5,6 +5,9 @@ use app\models\daos\PatientDAOInterface;
 use app\models\daos\PrescriptionDAOInterface;
 use app\models\dtos\Prescription;
 
+/**
+ * Handles prescription form display and prescription creation.
+ */
 class PrescriptionController {
     private MedicationDAOInterface $medicineDao;
     private PatientDAOInterface $patientDao;

@@ -4,6 +4,9 @@ namespace app\models\daos;
 
 use app\models\dtos\DiagnosticRecord;
 
+/**
+ * Defines diagnostic record persistence operations.
+ */
 interface DiagnosticRecordDAOInterface
 {
     /**

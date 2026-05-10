@@ -3,6 +3,9 @@
 namespace app\models\daos;
 use app\models\dtos\Medication;
 
+/**
+ * Defines medication lookup operations.
+ */
 interface MedicationDAOInterface
 {
     /**

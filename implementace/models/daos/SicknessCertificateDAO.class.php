@@ -4,6 +4,9 @@ use app\models\PDODatabase;
 use app\models\dtos\SicknessCertificate;
 use PDO;
 
+/**
+ * Data access object for sickness certificates.
+ */
 class SicknessCertificateDAO implements SicknessCertificateDAOInterface {
     private PDO $db;
 

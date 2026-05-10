@@ -8,6 +8,9 @@ use app\models\daos\SicknessCertificateDAO;
 use app\models\daos\SicknessCertificateDAOInterface;
 use app\models\dtos\Patient;
 
+/**
+ * Repository for complete patient profiles with related medical data.
+ */
 class PatientRepository
 {
     private PatientDAOInterface $patientDao;

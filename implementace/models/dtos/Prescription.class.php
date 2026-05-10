@@ -2,7 +2,7 @@
 
 namespace app\models\dtos;
 /**
- * prescription DTO
+ * Prescription DTO
  */
 class Prescription
 {

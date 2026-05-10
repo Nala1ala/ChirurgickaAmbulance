@@ -4,6 +4,9 @@ use app\models\dtos\Interaction;
 use PDO;
 use app\models\PDODatabase;
 
+/**
+ * Data access object for medicinal substance interactions.
+ */
 class InteractionDAO implements InteractionDAOInterface {
     private PDO $db;
 

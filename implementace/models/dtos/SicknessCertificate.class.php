@@ -1,6 +1,9 @@
 <?php
 
 namespace app\models\dtos;
+/**
+ * Sickness certificate DTO.
+ */
 class SicknessCertificate
 {
     private string $patientId;

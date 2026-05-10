@@ -4,6 +4,9 @@ use app\models\daos\PatientDAOInterface;
 use app\models\daos\SicknessCertificateDAOInterface;
 use app\models\dtos\SicknessCertificate;
 
+/**
+ * Handles sickness certificate creation and termination actions.
+ */
 class SicknessCertificateController {
     private PatientDAOInterface $patientDao;
     private SicknessCertificateDAOInterface $certificateDao;

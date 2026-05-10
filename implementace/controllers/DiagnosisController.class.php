@@ -5,6 +5,9 @@ use app\models\daos\DiagnosticRecordDAOInterface;
 use app\models\daos\PatientDAOInterface;
 use app\models\dtos\DiagnosticRecord;
 
+/**
+ * Handles diagnosis form display and diagnostic record creation.
+ */
 class DiagnosisController {
     private PatientDAOInterface $patientDao;
     private DiagnosisDAOInterface $diagnosisDao;

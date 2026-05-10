@@ -3,6 +3,9 @@
 namespace app\models\daos;
 use app\models\dtos\Interaction;
 
+/**
+ * Defines medicinal substance interaction persistence operations.
+ */
 interface InteractionDAOInterface
 {
     /**

@@ -5,6 +5,9 @@ use app\models\dtos\DiagnosticRecord;
 use app\models\PDODatabase;
 use PDO;
 
+/**
+ * Repository for diagnostic records enriched with diagnosis names.
+ */
 class DiagnosticRecordRepository implements DiagnosticRecordRepositoryInterface {
     private PDO $db;
 

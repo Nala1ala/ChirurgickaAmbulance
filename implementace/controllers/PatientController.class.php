@@ -4,6 +4,9 @@ use app\models\daos\PatientDAOInterface;
 use app\models\dtos\Patient;
 use app\models\repositories\PatientRepository;
 
+/**
+ * Handles patient list, search, detail, create, and edit actions.
+ */
 class PatientController {
     private PatientRepository $patientRepo;
     private PatientDAOInterface $patientDao;
