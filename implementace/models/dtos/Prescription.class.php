@@ -10,6 +10,8 @@ class Prescription
     private string $patientId;
     private int $medicineId;
     private string $commentary;
+    private string $medicineName;
+    private string $form;
 
     /**
      * New instance identifier
@@ -27,23 +29,74 @@ class Prescription
     }
 
     // Attribute getters
+    /**
+     * Gets the prescription issue date.
+     * @return string Prescription date
+     */
     public function getDate(): string
     {
         return $this->date;
     }
 
+    /**
+     * Gets the patient identifier.
+     * @return string Patient identifier
+     */
     public function getPatientId(): string
     {
         return $this->patientId;
     }
 
+    /**
+     * Gets the medication identifier.
+     * @return int Medication identifier
+     */
     public function getMedicineId(): int
     {
         return $this->medicineId;
     }
 
+    /**
+     * Gets the doctor's prescription comment.
+     * @return string Prescription comment
+     */
     public function getCommentary(): string
     {
         return $this->commentary;
+    }
+
+    /**
+     * Gets the medication name.
+     * @return string Medication name
+     */
+    public function getMedicineName(): string
+    {
+        return $this->medicineName;
+    }
+
+    /**
+     * Gets the medication form.
+     * @return string Medication form
+     */
+    public function getForm(): string
+    {
+        return $this->form;
+    }
+
+    /**
+     * @param string $medicineName
+     */
+    public function setMedicineName(string $medicineName): void
+    {
+        $this->medicineName = $medicineName;
+    }
+
+    /**
+     * Sets the medication form.
+     * @param string $form Medication form
+     */
+    public function setForm(string $form): void
+    {
+        $this->form = $form;
     }
 }
