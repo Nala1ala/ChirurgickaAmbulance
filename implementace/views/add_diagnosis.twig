@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="card-body">
-                    <p class="text-muted mb-4">Pacient: <strong>{{ patient_name }}</strong></p>
+                    <p class="text-muted mb-4">Pacient: <strong>{{ patient_name | striptags }}</strong></p>
 
                     <form action="index.php?action=add_diagnosis&id={{ patient_id }}" method="POST">
                         <div class="row">
@@ -24,7 +24,7 @@
                                     <select class="form-select" id="diagnosis_id" name="diagnosis_id" required>
                                         <option value="" selected disabled>-- Vyberte diagnózu --</option>
                                         {% for diag in diagnoses %}
-                                            <option value="{{ diag.getId() }}">{{ diag.getName() }}</option>
+                                            <option value="{{ diag.getId() }}">{{ diag.getName() | striptags }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

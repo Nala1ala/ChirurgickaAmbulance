@@ -1,7 +1,7 @@
 {# views/patient_detail.twig #}
 {% extends 'base.twig' %}
 
-{% block title %}Detail pacienta - {{ patient.givenName }} {{ patient.surname }}{% endblock %}
+{% block title %}Detail pacienta - {{ patient.getGivenName() | striptags }} {{ patient.getSurname() | striptags }}{% endblock %}
 
 {% block content %}
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -18,9 +18,9 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-4">
                         <h3 class="card-title fw-bold text-primary mb-0 me-2">
-                            {{ patient.givenName }} {{ patient.surname }}
+                            {{ patient.getGivenName() | striptags }} {{ patient.getSurname() | striptags }}
                         </h3>
-                        <a href="?action=edit_patient_form&id={{ patient.birthCertificateNumber }}"
+                        <a href="?action=edit_patient_form&id={{ patient.getBirthCertificateNumber() }}"
                            class="btn btn-outline-primary btn-sm border-0"
                            title="Upravit osobní údaje">
                             <i class="bi bi-pencil"></i>
@@ -28,19 +28,19 @@
                     </div>
 
                     <p class="mb-1 text-muted small">Rodné číslo:</p>
-                    <p class="fs-5 mb-3">{{ patient.birthCertificateNumber }}</p>
+                    <p class="fs-5 mb-3">{{ patient.getBirthCertificateNumber() }}</p>
 
                     <p class="mb-1 text-muted small">Datum narození:</p>
-                    <p class="fs-5 mb-3">{{ patient.birthdate|date("d.m.Y") }}</p>
+                    <p class="fs-5 mb-3">{{ patient.getBirthdate()|date("d.m.Y") }}</p>
 
                     <p class="mb-1 text-muted small">Číslo pojišťovny:</p>
-                    <p class="fs-5 mb-3">{{ patient.insuranceCompanyNumber }}</p>
+                    <p class="fs-5 mb-3">{{ patient.getInsuranceCompanyNumber() }}</p>
 
                     <p class="mb-1 text-muted small">Adresa:</p>
-                    <p class="fs-5 mb-3">{{ patient.address }}</p>
+                    <p class="fs-5 mb-3">{{ patient.getAddress() | striptags }}</p>
 
                     <p class="mb-1 text-muted small">Telefon:</p>
-                    <p class="fs-5 mb-0">{{ patient.phoneNumber }}</p>
+                    <p class="fs-5 mb-0">{{ patient.getPhoneNumber() | striptags }}</p>
                 </div>
             </div>
         </div>
@@ -62,14 +62,14 @@
                         <tr>
                             <td class="align-middle">{{ cert.startDate|date("d.m.Y") }}</td>
                             <td class="align-middle">
-                                {% if cert.endDate %}
-                                    {{ cert.endDate|date("d.m.Y") }}
+                                {% if cert.getEndDate() %}
+                                    {{ cert.getEndDate()|date("d.m.Y") }}
                                 {% else %}
                                     <a href="?action=end_certificate_form&patient_id={{ patient.birthCertificateNumber }}&start_date={{ cert.startDate }}" class="btn btn-danger btn-sm">Ukončit</a>
                                 {% endif %}
                             </td>
-                            <td class="align-middle">{{ cert.activeAddress }}</td>
-                            <td class="align-middle">{{ cert.employer }}</td>
+                            <td class="align-middle">{{ cert.getActiveAddress() | striptags }}</td>
+                            <td class="align-middle">{{ cert.getEmployer() | striptags }}</td>
                         </tr>
                     {% else %}
                         <tr>
@@ -102,10 +102,10 @@
                     <tbody>
                     {% for prescription in patient.prescriptions %}
                         <tr>
-                            <td>{{ prescription.medication.name }}</td>
-                            <td>{{ prescription.date|date("d.m.Y") }}</td>
-                            <td>{{ prescription.medication.form }}</td>
-                            <td>{{ prescription.commentary }}</td>
+                            <td>{{ prescription.getMedication().getName() | striptags }}</td>
+                            <td>{{ prescription.getDate|date("d.m.Y") }}</td>
+                            <td>{{ prescription.getMedication().getForm() | striptags }}</td>
+                            <td>{{ prescription.getCommentary() }}</td>
                         </tr>
                     {% else %}
                         <tr>
@@ -115,7 +115,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="?action=add_prescription_form&patient_id={{ patient.birthCertificateNumber }}" class="btn btn-success">
+            <a href="?action=add_prescription_form&patient_id={{ patient.getBirthCertificateNumber() }}" class="btn btn-success">
                 + Přidat předpis
             </a>
         </div>
@@ -134,9 +134,9 @@
                     <tbody>
                     {% for diag in patient.diagnoses %}
                         <tr>
-                            <td>{{ diag.diagnosis.name }}</td>
-                            <td>{{ diag.date|date("d.m.Y") }}</td>
-                            <td>{{ diag.description }}</td>
+                            <td>{{ diag.getDiagnosis().getName() | striptags }}</td>
+                            <td>{{ diag.getDate()|date("d.m.Y") }}</td>
+                            <td>{{ diag.getDescription() | striptags }}</td>
                         </tr>
                     {% else %}
                         <tr>
@@ -146,7 +146,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="?action=add_diagnosis_form&patient_id={{ patient.birthCertificateNumber }}" class="btn btn-warning text-dark">
+            <a href="?action=add_diagnosis_form&patient_id={{ patient.getBirthCertificateNumber() }}" class="btn btn-warning text-dark">
                 + Přidat diagnózu
             </a>
         </div>

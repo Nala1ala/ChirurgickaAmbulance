@@ -17,7 +17,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Rodné číslo (nelze měnit)</label>
-                                <input type="text" class="form-control bg-light" value="{{ patient.getBirthCertificateNumber() }}" readonly>
+                                <input type="text" class="form-control bg-light" value="{{ patient.getBirthCertificateNumber() | striptags }}" readonly>
                             </div>
 
                             <div class="col-md-6 mb-3">
@@ -29,12 +29,12 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="givenName" class="form-label fw-bold">Jméno *</label>
-                                <input type="text" class="form-control" id="givenName" name="givenName" value="{{ patient.getGivenName() }}" required>
+                                <input type="text" class="form-control" id="givenName" name="givenName" value="{{ patient.getGivenName() | striptags }}" required>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label for="surname" class="form-label fw-bold">Příjmení *</label>
-                                <input type="text" class="form-control" id="surname" name="surname" value="{{ patient.getSurname() }}" required>
+                                <input type="text" class="form-control" id="surname" name="surname" value="{{ patient.getSurname() | striptags }}" required>
                             </div>
                         </div>
 
@@ -46,13 +46,13 @@
 
                             <div class="col-md-6 mb-3">
                                 <label for="phoneNumber" class="form-label fw-bold">Telefonní číslo *</label>
-                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{ patient.getPhoneNumber() }}" required>
+                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{ patient.getPhoneNumber() | striptags }}" required>
                             </div>
                         </div>
 
                         <div class="mb-4">
                             <label for="address" class="form-label fw-bold">Trvalé bydliště *</label>
-                            <input type="text" class="form-control" id="address" name="address" value="{{ patient.getAddress() }}" required>
+                            <input type="text" class="form-control" id="address" name="address" value="{{ patient.getAddress() | striptags }}" required>
                         </div>
 
                         <div class="d-flex justify-content-between border-top pt-3 mt-4">

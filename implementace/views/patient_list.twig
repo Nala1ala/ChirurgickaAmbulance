@@ -7,13 +7,11 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Přehled pacientů</h2>
 
-        {# Tlačítko pro PU-01 Přidat pacienta #}
         <a href="?action=add_patient_form" class="btn btn-primary">
             <i class="bi bi-person-plus"></i> Nový pacient
         </a>
     </div>
 
-    {# Panel pro vyhledávání (PU-03) #}
     <div class="card shadow-sm mb-4">
         <div class="card-body bg-white">
             <form action="index.php" method="GET">
@@ -22,14 +20,12 @@
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-search"></i></span>
 
-                    {# Dropdown pro výběr atributu hledání #}
                     <select name="searchType" class="form-select" style="max-width: 200px;">
                         <option value="name">Jméno</option>
                         <option value="birth_certificate">Rodné číslo</option>
                         <option value="insurance_number">Číslo pojišťovny</option>
                     </select>
 
-                    {# Samotné políčko pro výraz #}
                     <input type="text" name="query" class="form-control" placeholder="Zadejte hledaný výraz..." required>
 
                     <button type="submit" class="btn btn-secondary">Vyhledat</button>
@@ -38,7 +34,6 @@
         </div>
     </div>
 
-    {# Tabulka s výsledky / seznamem všech #}
     <div class="card shadow-sm">
         <div class="card-body p-0">
             <table class="table table-hover table-striped mb-0">
@@ -61,11 +56,11 @@
                                 {{ p.birthCertificateNumber }}
                             </a>
                         </td>
-                        <td>{{ p.givenName }}</td>
-                        <td>{{ p.surname }}</td>
-                        <td>{{ p.insuranceCompanyNumber }}</td>
-                        <td>{{ p.birthdate|date("d.m.Y") }}</td>
-                        <td>{{ p.address }}</td>
+                        <td>{{ p.getGivenName() | striptags }}</td>
+                        <td>{{ p.getSurname() | striptags }}</td>
+                        <td>{{ p.getInsuranceCompanyNumber() }}</td>
+                        <td>{{ p.getBirthdate()|date("d.m.Y") }}</td>
+                        <td>{{ p.getAddress() | striptags }}</td>
                     </tr>
                 {% else %}
                     <tr>
