@@ -24,12 +24,12 @@ interface SicknessCertificateDAOInterface
 
     /**
      * Updates the end date of a sickness certificate.
-     * @param int $patientId Patient identifier
+     * @param string $patientId Patient identifier
      * @param string $startDate Certificate start date
      * @param string $endDate Certificate end date
      * @return bool Update successful?
      */
-    public function updateEndDate(int $patientId, string $startDate, string $endDate): bool;
+    public function updateEndDate(string $patientId, string $startDate, string $endDate): bool;
 
     /**
      * Gets sickness certificates for a patient.

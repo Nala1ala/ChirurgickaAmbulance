@@ -22,7 +22,7 @@ class SicknessCertificateDAO implements SicknessCertificateDAOInterface {
      * @return array of SicknessCertificate DTOs
      */
     public function getActiveCertificates(): array {
-        $sql = "SELECT * FROM sickness_certificate WHERE End_date IS NULL";
+        $sql = "SELECT * FROM sickness_certificate WHERE Date_end IS NULL";
         $stmt = $this->db->query($sql);
 
         $certificates = [];
@@ -57,12 +57,12 @@ class SicknessCertificateDAO implements SicknessCertificateDAOInterface {
 
     /**
      * Terminates a patient's sickness certificate
-     * @param int $patientId Patient identifier
+     * @param string $patientId Patient identifier
      * @param string $startDate
      * @param string $endDate
      * @return bool Update successful?
      */
-    public function updateEndDate(int $patientId, string $startDate, string $endDate): bool {
+    public function updateEndDate(string $patientId, string $startDate, string $endDate): bool {
         $sql = "UPDATE sickness_certificate SET Date_end = :end_date 
                 WHERE Patient_id = :patient_id AND Date_beginning = :start_date";
         $stmt = $this->db->prepare($sql);
