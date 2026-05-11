@@ -7,7 +7,7 @@ use PDOException;
 
 
 /**
- *
+ * Data access object for Diagnosis
  */
 class DiagnosticRecordDAO implements DiagnosticRecordDAOInterface {
     /**

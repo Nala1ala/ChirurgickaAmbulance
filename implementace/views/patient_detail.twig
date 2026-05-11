@@ -102,9 +102,9 @@
                     <tbody>
                     {% for prescription in patient.prescriptions %}
                         <tr>
-                            <td>{{ prescription.medicineName }}</td>
+                            <td>{{ prescription.medication.name }}</td>
                             <td>{{ prescription.date|date("d.m.Y") }}</td>
-                            <td>{{ prescription.form }}</td>
+                            <td>{{ prescription.medication.form }}</td>
                             <td>{{ prescription.commentary }}</td>
                         </tr>
                     {% else %}
@@ -134,7 +134,7 @@
                     <tbody>
                     {% for diag in patient.diagnoses %}
                         <tr>
-                            <td>{{ diag.diagnosisName }}</td>
+                            <td>{{ diag.diagnosis.name }}</td>
                             <td>{{ diag.date|date("d.m.Y") }}</td>
                             <td>{{ diag.description }}</td>
                         </tr>

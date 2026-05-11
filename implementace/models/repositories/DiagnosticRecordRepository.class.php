@@ -1,6 +1,7 @@
 <?php
 namespace app\models\repositories;
 
+use app\models\dtos\Diagnosis;
 use app\models\dtos\DiagnosticRecord;
 use app\models\PDODatabase;
 use PDO;
@@ -34,7 +35,8 @@ class DiagnosticRecordRepository implements DiagnosticRecordRepositoryInterface 
         $records = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $record = new DiagnosticRecord($row['Date'], $patientId, (int)$row['Diagnosis_id'], $row['Description']);
-            $record->setDiagnosisName($row['DiagnosisName']);
+            $diagnosis = new Diagnosis($row['Diagnosis_id'], $row['DiagnosisName']);
+            $record->setDiagnosis($diagnosis);
             $records[] = $record;
         }
 

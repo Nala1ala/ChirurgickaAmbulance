@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models\dtos;
+use app\models\dtos\Diagnosis;
 /**
  * Diagnostic record of a specific patient DTO
  */
@@ -10,7 +11,7 @@ class DiagnosticRecord
     private string $patientId;
     private int $diagnosisId;
     private string $description;
-    private string $diagnosisName;
+    private Diagnosis $diagnosis;
 
     /**
      * New instance constructor
@@ -65,18 +66,20 @@ class DiagnosticRecord
     }
 
     /**
-     * Gets the diagnosis name.
-     * @return string Diagnosis name
+     * Gets the diagnosis object
+     * @return Diagnosis
      */
-    public function getDiagnosisName(): string {
-        return $this->diagnosisName;
+    public function getDiagnosis(): Diagnosis
+    {
+        return $this->diagnosis;
     }
 
     /**
-     * Sets the diagnosis name.
-     * @param string $diagnosisName Diagnosis name
+     * Sets the diagnosis object
+     * @param Diagnosis $diagnosis Diagnosis
+     * @return void
      */
-    public function setDiagnosisName(string $diagnosisName): void {
-        $this->diagnosisName = $diagnosisName;
+    public function setDiagnosis(Diagnosis $diagnosis): void {
+        $this->diagnosis = $diagnosis;
     }
 }

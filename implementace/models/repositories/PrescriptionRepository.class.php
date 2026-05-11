@@ -1,6 +1,7 @@
 <?php
 namespace app\models\repositories;
 
+use app\models\dtos\Medication;
 use app\models\dtos\Prescription;
 use app\models\PDODatabase;
 use PDO;
@@ -22,7 +23,7 @@ class PrescriptionRepository implements PrescriptionRepositoryInterface {
      * Vrátí seznam receptů pacienta včetně názvu a formy léku
      */
     public function getPrescriptionsWithNames(string $patientId): array {
-        $sql = "SELECT p.Date, m.Name as MedicineName, m.Form, p.Commentary, p.Medicine_Id
+        $sql = "SELECT p.Date, m.Name as MedicineName, m.Form, m.Medicinal_substance, p.Commentary, p.Medicine_Id
                 FROM prescription p
                 JOIN medication m ON p.Medicine_id = m.Id
                 WHERE p.Patient_id = :patient_id
@@ -34,8 +35,8 @@ class PrescriptionRepository implements PrescriptionRepositoryInterface {
         $prescriptions = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $prescription = new Prescription($row['Date'], $patientId, (int)$row['Medicine_Id'], $row['Commentary']);
-            $prescription->setMedicineName($row['MedicineName']);
-            $prescription->setForm($row['Form']);
+            $medication = new Medication($row['Medicine_Id'], $row['MedicineName'], $row['Medicinal_substance'], $row['Form']);
+            $prescription->setMedication($medication);
             $prescriptions[] = $prescription;
         }
 

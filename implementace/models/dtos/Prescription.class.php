@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models\dtos;
+use app\models\dtos\Medication;
 /**
  * Prescription DTO
  */
@@ -10,8 +11,7 @@ class Prescription
     private string $patientId;
     private int $medicineId;
     private string $commentary;
-    private string $medicineName;
-    private string $form;
+    private Medication $medication;
 
     /**
      * New instance identifier
@@ -66,37 +66,20 @@ class Prescription
     }
 
     /**
-     * Gets the medication name.
-     * @return string Medication name
+     * Gets the medication object
+     * @return \app\models\dtos\Medication Medication
      */
-    public function getMedicineName(): string
-    {
-        return $this->medicineName;
+    public function getMedication(): Medication {
+        return $this->medication;
     }
 
     /**
-     * Gets the medication form.
-     * @return string Medication form
+     * Sets the medication object
+     * @param \app\models\dtos\Medication $medication Medication
+     * @return void
      */
-    public function getForm(): string
+    public function setMedication(Medication $medication): void
     {
-        return $this->form;
-    }
-
-    /**
-     * @param string $medicineName
-     */
-    public function setMedicineName(string $medicineName): void
-    {
-        $this->medicineName = $medicineName;
-    }
-
-    /**
-     * Sets the medication form.
-     * @param string $form Medication form
-     */
-    public function setForm(string $form): void
-    {
-        $this->form = $form;
+        $this->medication = $medication;
     }
 }
