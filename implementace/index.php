@@ -1,10 +1,7 @@
 <?php
 namespace app;
-// Zapneme sessions (užitečné např. pro budoucí přihlašování lékaře nebo flash messages)
-session_start();
+// session_start();
 
-// 1. Načtení závislostí a knihoven (Twig)
-// Předpokládáme použití Composeru pro načtení Twigu
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/myAutoloader.inc.php';
 
@@ -26,13 +23,14 @@ use app\models\repositories\DiagnosticRecordRepository;
 use app\models\repositories\PatientRepository;
 use app\models\repositories\PrescriptionRepository;
 
-// 3. Inicializace šablonovacího systému Twig
+// Twig initialization
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/views');
 $twig = new \Twig\Environment($loader, [
-    // 'cache' => __DIR__ . '/cache', // Pro produkci odkomentovat
-    'auto_reload' => true // Během vývoje chceme hned vidět změny v šablonách
+    // 'cache' => __DIR__ . '/cache',
+    'auto_reload' => true
 ]);
 
+// Models
 $patientDAO = new PatientDAO();
 $diagnosisDAO = new DiagnosisDAO();
 $prescriptionDAO = new PrescriptionDAO();
@@ -43,21 +41,19 @@ $diagnosticRecordRepository = new DiagnosticRecordRepository();
 $prescriptionRepository = new PrescriptionRepository();
 $patientRepository = new PatientRepository($patientDAO, $prescriptionRepository, $diagnosticRecordRepository, $sicknessCertificateDAO);
 
-// 4. Inicializace jednotlivých kontrolerů (předáváme jim Twig)
+// Controllers
 $patientController = new PatientController($twig, $patientRepository, $patientDAO);
 $diagnosisController = new DiagnosisController($twig, $patientDAO, $diagnosisDAO, $diagnosticRecordDAO);
 $prescriptionController = new PrescriptionController($twig, $medicationDAO, $patientDAO, $prescriptionDAO);
 $certificateController = new SicknessCertificateController($twig, $patientDAO, $sicknessCertificateDAO);
 
-// 5. Získání požadované akce z URL (výchozí je seznam pacientů)
 $action = $_GET['action'] ?? 'patients';
 
-// 6. Hlavní směrovač (Router)
 try {
     switch ($action) {
 
         // ==========================================
-        // PACIENTI (PU-01, PU-03, PU-10)
+        // PATIENTS
         // ==========================================
         case 'patients':
             $patientController->index();
@@ -88,7 +84,7 @@ try {
             break;
 
         // ==========================================
-        // DIAGNÓZY (PU-05)
+        // DIAGNOSES
         // ==========================================
         case 'add_diagnosis_form':
             $diagnosisController->showAddDiagnosisForm();
@@ -99,7 +95,7 @@ try {
             break;
 
         // ==========================================
-        // PŘEDPISY LÉKŮ (PU-04)
+        // MEDICATION PRESCRIPTIONS
         // ==========================================
         case 'add_prescription_form':
             $prescriptionController->showAddPrescriptionForm();
@@ -110,10 +106,9 @@ try {
             break;
 
         // ==========================================
-        // NESCHOPENKY (PU-02, PU-08, PU-09)
+        // SICKNESS CERTIFICATES
         // ==========================================
         case 'certificates':
-            // PU-02 Zobrazit aktivní neschopenky
             // $certificateController->index();
             break;
 
@@ -134,14 +129,14 @@ try {
             break;
 
         // ==========================================
-        // LÉKOVÉ INTERAKCE (PU-06, PU-07)
+        // MEDICATION INTERACTIONS
         // ==========================================
         case 'interactions':
             // $interactionController->index();
             break;
 
         // ==========================================
-        // CHYBOVÝ STAV - Neznámá akce
+        // ERROR STATE
         // ==========================================
         default:
             echo $twig->render('error.twig', [
@@ -151,7 +146,6 @@ try {
     }
 
 } catch (\Exception $e) {
-    // Globální zachycení chyb – pokud selže DB nebo cokoliv jiného, zobrazíme to hezky
     echo $twig->render('error.twig', [
         'message' => 'Kritická chyba systému: ' . $e->getMessage()
     ]);
