@@ -28,7 +28,7 @@ class SicknessCertificateDAO implements SicknessCertificateDAOInterface {
         $certificates = [];
         while ($row = $stmt->fetch()) {
             $certificates[] = new SicknessCertificate(
-                (int)$row['Patient_id'], $row['Date_beginning'], $row['Date_end'],
+                $row['Patient_id'], $row['Date_beginning'], $row['Date_end'],
                 $row['Active_address'], $row['Employer']
             );
         }
