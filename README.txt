@@ -8,5 +8,11 @@ Téma vychází z tématu využitého v předmětu DB1. Aplikace by měla simulo
 Komentáře k odevzdání:
 
 Ve složce dokumentace - dokument se specifikací případů užití
+			- dokumentace aplikace
+Ve složce implementace - složka docs - automaticky vygenerovaná anglická dokumentace tříd a metod
+			- složka api - kódy pro REST API a klienta
+			- složka controllers - třídy zajišťující aplikační logiku
+			- složka models - složky daos, dtos, repositories se soubory zajišťujícími přístup do 				databáze a přenos dat
+			- složka views - Twig šablony pohledů pro zobrazení dat uživateli 
 Ve složce modely - Wireframe.drawio - wireframe PU-04
-		- ChirutgickaAmbulance.vpp - diagram případů užití, tříd, stavů entity neschopenka
+		- ChirutgickaAmbulance.vpp - diagram případů užití, tříd, stavů entity neschopenka, komponent, 			sekvenční diagramy a diagramy tříd pro PU-01 a PU-03
